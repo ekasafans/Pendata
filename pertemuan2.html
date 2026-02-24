@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Pertemuan 2 - Memahami Data &#8212; Penambangan Data A - Materi Perkuliahan</title>
   
@@ -28,35 +29,39 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'pertemuan2';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -158,18 +163,7 @@
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -224,9 +218,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -367,7 +361,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -383,6 +379,44 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macam-macam-data">Macam-macam Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-data-atribut">Tipe Data Atribut</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi">Implementasi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library-visualisasi">Import Library Visualisasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-program-implementasi-data-iris-csv-dari-kaggle">Kode Program Implementasi Data <em>IRIS.csv</em> dari Kaggle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bar-chart-jumlah-data-per-spesies">Bar Chart Jumlah Data per Spesies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-semua-fitur-numerik">Histogram Semua Fitur Numerik</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-semua-fitur-numerik-deteksi-outlier">Boxplot Semua Fitur Numerik (Deteksi Outlier)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-petal-length-vs-petal-width">Scatter Plot <code class="docutils literal notranslate"><span class="pre">petal_length</span></code> vs <code class="docutils literal notranslate"><span class="pre">petal_width</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-sepal-length-vs-sepal-width">Scatter Plot <code class="docutils literal notranslate"><span class="pre">sepal_length</span></code> vs <code class="docutils literal notranslate"><span class="pre">sepal_width</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-satu-fitur-histogram-kde-per-spesies">Distribusi Satu Fitur (Histogram + KDE) per Spesies</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-length">Distribusi Petal Length</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-width">Distribusi Petal Width</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-length">Distribusi Sepal Length</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-width">Distribusi Sepal Width</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-per-spesies">Boxplot per Spesies</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#petal-length-per-spesies">Petal Length per Spesies</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#petal-width-per-spesies">Petal Width per Spesies</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairplot">Pairplot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-menggunakan-orange-data-mining">Implementasi Menggunakan Orange Data Mining</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lampiran-file-screenshot">Lampiran File &amp; Screenshot</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#struktur-workflow-orange-sesuai-file-ows">Struktur Workflow Orange (sesuai file .ows)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-hasil-implementasi-di-orange">Penjelasan Hasil Implementasi di Orange</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -393,11 +427,381 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="pertemuan-2-memahami-data">
-<h1>Pertemuan 2 - Memahami Data<a class="headerlink" href="#pertemuan-2-memahami-data" title="Link to this heading">#</a></h1>
-<div class="warning admonition">
-<p class="admonition-title">Segera Diperbarui</p>
-<p>Materi pertemuan ini akan segera diperbarui setelah perkuliahan berlangsung.</p>
+<h1>Pertemuan 2 - Memahami Data<a class="headerlink" href="#pertemuan-2-memahami-data" title="Permalink to this heading">#</a></h1>
+<p>Referensi: <a class="reference external" href="https://mulaab.github.io/datamining/memahami-data/">Mulaab - Memahami Data</a></p>
+<section id="macam-macam-data">
+<h2>Macam-macam Data<a class="headerlink" href="#macam-macam-data" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Data Terstruktur</strong> - data dalam bentuk tabel (kolom &amp; baris), mudah disimpan di database/Excel/SQL</p></li>
+<li><p><strong>Data Tidak Terstruktur</strong> - data yang bervariasi kontennya (email, teks bebas)</p></li>
+<li><p><strong>Bahasa Alami</strong> - bahasa manusia (Indonesia, Inggris, dll)</p></li>
+<li><p><strong>Data Machine-Generated</strong> - data otomatis dari mesin (weblog, IoT)</p></li>
+<li><p><strong>Data Graph</strong> - data keterhubungan antar objek (media sosial)</p></li>
+<li><p><strong>Data Audio/Video/Citra</strong> - data multimedia</p></li>
+<li><p><strong>Data Streaming</strong> - data real-time dari ribuan sumber</p></li>
+</ul>
+</section>
+<section id="tipe-data-atribut">
+<h2>Tipe Data Atribut<a class="headerlink" href="#tipe-data-atribut" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tipe</p></th>
+<th class="head"><p>Keterangan</p></th>
+<th class="head"><p>Contoh</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Nominal</strong></p></td>
+<td><p>Kategori tanpa urutan</p></td>
+<td><p>Warna rambut, pekerjaan</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Biner</strong></p></td>
+<td><p>Hanya 2 nilai (0/1)</p></td>
+<td><p>Merokok (ya/tidak)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Ordinal</strong></p></td>
+<td><p>Ada urutan, tapi jarak tidak diketahui</p></td>
+<td><p>Kecil/Sedang/Besar</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Numerik</strong></p></td>
+<td><p>Kuantitatif, terukur</p></td>
+<td><p>Suhu, berat badan</p></td>
+</tr>
+</tbody>
+</table>
 </div>
+</section>
+<section id="implementasi">
+<h2>Implementasi<a class="headerlink" href="#implementasi" title="Permalink to this heading">#</a></h2>
+<p>Implementasi lengkap tersedia di notebook <strong>Penambangan_Data_A_Pertemuan_2.ipynb</strong>
+Klik link di sini: <a class="reference external" href="https://colab.research.google.com/drive/1E3Q08hfZdSmWzxCUESfMqbEiIOpIxSuU?usp=sharing">Buka di Google Colab</a>
+yang mencakup:</p>
+<ol class="arabic simple">
+<li><p>Distribusi Data (distribusi normal, histogram, density plot)</p></li>
+<li><p>Statistik Deskriptif (mean, median, modus, IQR, variansi, skewness, boxplot)</p></li>
+<li><p>Jarak Numerik (Minkowski, Manhattan, Euclidean, Cosine, Pearson, dll)</p></li>
+<li><p>Jarak Binary (symmetric/asymmetric dissimilarity, Jaccard)</p></li>
+<li><p>Jarak Categorical (Overlay Metric, VDM, MRM)</p></li>
+<li><p>Jarak Ordinal (normalisasi ranking)</p></li>
+<li><p>Jarak Campuran (gabungan semua tipe)</p></li>
+</ol>
+<p>Atau bisa juga dilihat di bawah ini:</p>
+<section id="import-library-visualisasi">
+<h3>Import Library Visualisasi<a class="headerlink" href="#import-library-visualisasi" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="c1"># optional: mempercantik tampilan default</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="kode-program-implementasi-data-iris-csv-dari-kaggle">
+<h3>Kode Program Implementasi Data <em>IRIS.csv</em> dari Kaggle<a class="headerlink" href="#kode-program-implementasi-data-iris-csv-dari-kaggle" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="c1"># baca file</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;IRIS.csv&quot;</span><span class="p">)</span>   <span class="c1"># atau &quot;/content/IRIS.csv&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape dataset:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1"># df.info()</span>
+<span class="c1"># df.describe()</span>
+<span class="c1"># df.isnull().sum()</span>
+<span class="c1"># df.duplicated().sum()</span>
+
+<span class="c1"># pilih kolom numerik yang mau dianalisis</span>
+<span class="n">kolom</span> <span class="o">=</span> <span class="s1">&#39;sepal_length&#39;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;jumlah data      &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rata-rata        &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;nilai minimal    &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Q1               &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Q2 (median)      &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Q3               &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nilai Max        &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;kemencengan      &quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)))</span>
+
+<span class="c1"># Modus (lebih aman pakai pandas)</span>
+<span class="n">modus</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">modus</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">nilai_modus</span> <span class="o">=</span> <span class="n">modus</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">jumlah_modus</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span> <span class="o">==</span> <span class="n">nilai_modus</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nilai modus </span><span class="si">{}</span><span class="s2"> dengan jumlah </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nilai_modus</span><span class="p">,</span> <span class="n">jumlah_modus</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tidak ada modus&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;kemencengan      &quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.6f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">skew</span><span class="p">(),</span> <span class="mi">6</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Standar Deviasi  &quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variansi         &quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">kolom</span><span class="p">]</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Shape</span> <span class="n">dataset</span><span class="p">:</span> <span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">jumlah</span> <span class="n">data</span>       <span class="mi">150</span>
+<span class="n">rata</span><span class="o">-</span><span class="n">rata</span>         <span class="mf">5.843333333333334</span>
+<span class="n">nilai</span> <span class="n">minimal</span>     <span class="mf">4.3</span>
+<span class="n">Q1</span>                <span class="mf">5.1</span>
+<span class="n">Q2</span> <span class="p">(</span><span class="n">median</span><span class="p">)</span>       <span class="mf">5.8</span>
+<span class="n">Q3</span>                <span class="mf">6.4</span>
+<span class="n">Nilai</span> <span class="n">Max</span>         <span class="mf">7.9</span>
+<span class="n">kemencengan</span>       <span class="mf">0.31</span>
+<span class="n">Nilai</span> <span class="n">modus</span> <span class="mf">5.0</span> <span class="n">dengan</span> <span class="n">jumlah</span> <span class="mi">10</span>
+<span class="n">kemencengan</span>       <span class="mf">0.314911</span>
+<span class="n">Standar</span> <span class="n">Deviasi</span>   <span class="mf">0.83</span>
+<span class="n">Variansi</span>          <span class="mf">0.69</span>
+</pre></div>
+</div>
+</section>
+<section id="bar-chart-jumlah-data-per-spesies">
+<h3>Bar Chart Jumlah Data per Spesies<a class="headerlink" href="#bar-chart-jumlah-data-per-spesies" title="Permalink to this heading">#</a></h3>
+<p><strong>Interpretasi singkat</strong></p>
+<ul class="simple">
+<li><p>Setiap spesies memiliki jumlah data yang seimbang (masing-masing 50).</p></li>
+<li><p>Dataset termasuk <em>balanced dataset</em>, sehingga tidak ada ketimpangan kelas.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Jumlah Data per Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Jumlah&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Bar Chart Species" src="_images/Bar_Chart.png" /></p>
+</section>
+<section id="histogram-semua-fitur-numerik">
+<h3>Histogram Semua Fitur Numerik<a class="headerlink" href="#histogram-semua-fitur-numerik" title="Permalink to this heading">#</a></h3>
+<p><strong>Interpretasi singkat</strong></p>
+<ul class="simple">
+<li><p>Histogram menunjukkan pola distribusi masing-masing fitur.</p></li>
+<li><p>Fitur petal cenderung memperlihatkan pemisahan kelompok yang lebih jelas dibanding sepal.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Histogram Fitur Numerik Iris&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Histogram Fitur" src="_images/Histogram.png" /></p>
+</section>
+<section id="boxplot-semua-fitur-numerik-deteksi-outlier">
+<h3>Boxplot Semua Fitur Numerik (Deteksi Outlier)<a class="headerlink" href="#boxplot-semua-fitur-numerik-deteksi-outlier" title="Permalink to this heading">#</a></h3>
+<p><strong>Interpretasi singkat</strong></p>
+<ul class="simple">
+<li><p>Boxplot membantu melihat median, kuartil, dan potensi outlier.</p></li>
+<li><p>Pada Iris, outlier ekstrem biasanya tidak dominan.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Boxplot Fitur Numerik Iris&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Nilai&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Boxplot Semua Fitur" src="_images/Boxplot.png" /></p>
+</section>
+<section id="scatter-plot-petal-length-vs-petal-width">
+<h3>Scatter Plot <code class="docutils literal notranslate"><span class="pre">petal_length</span></code> vs <code class="docutils literal notranslate"><span class="pre">petal_width</span></code><a class="headerlink" href="#scatter-plot-petal-length-vs-petal-width" title="Permalink to this heading">#</a></h3>
+<p><strong>Interpretasi singkat</strong></p>
+<ul class="simple">
+<li><p>Iris-setosa biasanya terpisah jelas dari dua spesies lain.</p></li>
+<li><p>petal_length dan petal_width merupakan fitur yang sangat informatif untuk klasifikasi.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;petal_length&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;petal_width&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;species&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Scatter Plot: Petal Length vs Petal Width&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Petal Length&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Petal Width&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Scatter Petal" src="_images/ScatterPlotPetal.png" /></p>
+</section>
+<section id="scatter-plot-sepal-length-vs-sepal-width">
+<h3>Scatter Plot <code class="docutils literal notranslate"><span class="pre">sepal_length</span></code> vs <code class="docutils literal notranslate"><span class="pre">sepal_width</span></code><a class="headerlink" href="#scatter-plot-sepal-length-vs-sepal-width" title="Permalink to this heading">#</a></h3>
+<p><strong>Interpretasi singkat</strong></p>
+<ul class="simple">
+<li><p>Titik antar kelas lebih banyak overlap dibanding fitur petal.</p></li>
+<li><p>Artinya fitur sepal cenderung kurang kuat untuk pemisahan kelas.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;sepal_length&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;sepal_width&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;species&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Scatter Plot: Sepal Length vs Sepal Width&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Sepal Length&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Sepal Width&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Scatter Sepal" src="_images/ScatterPlotSepal.png" /></p>
+</section>
+<section id="distribusi-satu-fitur-histogram-kde-per-spesies">
+<h3>Distribusi Satu Fitur (Histogram + KDE) per Spesies<a class="headerlink" href="#distribusi-satu-fitur-histogram-kde-per-spesies" title="Permalink to this heading">#</a></h3>
+<section id="distribusi-petal-length">
+<h4>Distribusi Petal Length<a class="headerlink" href="#distribusi-petal-length" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Petal Length per Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Petal Length&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frekuensi&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Distribusi Petal Length" src="_images/DistribusiTepalLength.png" /></p>
+</section>
+<section id="distribusi-petal-width">
+<h4>Distribusi Petal Width<a class="headerlink" href="#distribusi-petal-width" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;petal_width&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Petal Width per Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Petal Width&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frekuensi&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Distribusi Petal Width" src="_images/DistribusiTepalWidth.png" /></p>
+</section>
+<section id="distribusi-sepal-length">
+<h4>Distribusi Sepal Length<a class="headerlink" href="#distribusi-sepal-length" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Sepal Length per Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Sepal Length&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frekuensi&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Distribusi Sepal Length" src="_images/DistribusiSepalLength.png" /></p>
+</section>
+<section id="distribusi-sepal-width">
+<h4>Distribusi Sepal Width<a class="headerlink" href="#distribusi-sepal-width" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Sepal Width per Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Sepal Width&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frekuensi&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Distribusi Sepal Width" src="_images/DistribusiSepalWidth.png" /></p>
+</section>
+</section>
+<section id="boxplot-per-spesies">
+<h3>Boxplot per Spesies<a class="headerlink" href="#boxplot-per-spesies" title="Permalink to this heading">#</a></h3>
+<section id="petal-length-per-spesies">
+<h4>Petal Length per Spesies<a class="headerlink" href="#petal-length-per-spesies" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;petal_length&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Boxplot Petal Length per Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Petal Length&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Boxplot Petal Length" src="_images/BoxplotPetalLength.png" /></p>
+</section>
+<section id="petal-width-per-spesies">
+<h4>Petal Width per Spesies<a class="headerlink" href="#petal-width-per-spesies" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;petal_width&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Boxplot Petal Width per Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Petal Width&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Boxplot Petal Width" src="_images/BoxplotPetalWidth.png" /></p>
+</section>
+</section>
+<section id="pairplot">
+<h3>Pairplot<a class="headerlink" href="#pairplot" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Pairplot" src="_images/Pairplot.png" /></p>
+</section>
+<section id="implementasi-menggunakan-orange-data-mining">
+<h3>Implementasi Menggunakan Orange Data Mining<a class="headerlink" href="#implementasi-menggunakan-orange-data-mining" title="Permalink to this heading">#</a></h3>
+<p>Selain menggunakan Python, eksplorasi data Iris juga dapat dilakukan dengan <strong>Orange Data Mining</strong> (visual programming, tanpa coding penuh).</p>
+<section id="lampiran-file-screenshot">
+<h4>Lampiran File &amp; Screenshot<a class="headerlink" href="#lampiran-file-screenshot" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Download dataset Iris (CSV): <a class="reference download internal" download="" href="_downloads/457973069920809fc1903c65cb950514/IRIS.csv"><span class="xref download myst">IRIS.csv</span></a></p></li>
+<li><p>Download workflow Orange: <a class="reference download internal" download="" href="_downloads/26a081ce9d978866df1a2c1d1e3ab27b/OrangeIrisFlower.ows"><span class="xref download myst">OrangeIrisFlower.ows</span></a></p></li>
+<li><p>Screenshot workflow Orange:</p></li>
+</ul>
+<p><img alt="Workflow Orange Iris" src="_images/ScreenshotOrangeIrisFlower.png" /></p>
+</section>
+<section id="struktur-workflow-orange-sesuai-file-ows">
+<h4>Struktur Workflow Orange (sesuai file .ows)<a class="headerlink" href="#struktur-workflow-orange-sesuai-file-ows" title="Permalink to this heading">#</a></h4>
+<p>Urutan koneksi widget pada workflow:</p>
+<ol class="arabic simple">
+<li><p><strong>CSV File Import → Data Info</strong></p>
+<ul class="simple">
+<li><p>Memuat <code class="docutils literal notranslate"><span class="pre">IRIS.csv</span></code> lalu menampilkan ringkasan dataset.</p></li>
+<li><p>Informasi utama: 150 baris, 5 kolom (4 fitur numerik + 1 kelas/species).</p></li>
+</ul>
+</li>
+<li><p><strong>CSV File Import → Data Table</strong></p>
+<ul class="simple">
+<li><p>Menampilkan data mentah dalam bentuk tabel.</p></li>
+<li><p>Memudahkan pengecekan nilai per baris/kolom.</p></li>
+</ul>
+</li>
+<li><p><strong>Data Table (Selected Data) → Column Statistics</strong></p>
+<ul class="simple">
+<li><p>Mengirim data terpilih ke statistik kolom.</p></li>
+<li><p>Berguna untuk melihat mean, median, variasi, dan missing values pada subset data.</p></li>
+</ul>
+</li>
+<li><p><strong>CSV File Import → Scatter Plot</strong></p>
+<ul class="simple">
+<li><p>Visualisasi hubungan dua atribut numerik.</p></li>
+<li><p>Umumnya dipakai <code class="docutils literal notranslate"><span class="pre">petal_length</span></code> vs <code class="docutils literal notranslate"><span class="pre">petal_width</span></code> untuk melihat pemisahan kelas Iris.</p></li>
+</ul>
+</li>
+<li><p><strong>CSV File Import → Distributions</strong></p>
+<ul class="simple">
+<li><p>Menampilkan distribusi nilai setiap atribut (histogram/density).</p></li>
+<li><p>Membantu membandingkan pola sebaran antar spesies.</p></li>
+</ul>
+</li>
+<li><p><strong>CSV File Import → Bar Plot</strong></p>
+<ul class="simple">
+<li><p>Menampilkan jumlah data per kategori (spesies).</p></li>
+<li><p>Pada Iris terlihat komposisi kelas seimbang (masing-masing 50).</p></li>
+</ul>
+</li>
+<li><p><strong>CSV File Import → Box Plot</strong></p>
+<ul class="simple">
+<li><p>Menampilkan median, kuartil, whisker, dan potensi outlier.</p></li>
+<li><p>Membantu analisis sebaran fitur antar spesies secara ringkas.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="penjelasan-hasil-implementasi-di-orange">
+<h4>Penjelasan Hasil Implementasi di Orange<a class="headerlink" href="#penjelasan-hasil-implementasi-di-orange" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Scatter Plot</strong> menunjukkan pemisahan kelas paling jelas pada fitur petal, terutama <code class="docutils literal notranslate"><span class="pre">Iris-setosa</span></code> yang cenderung terpisah dari dua kelas lainnya.</p></li>
+<li><p><strong>Distributions</strong> memperlihatkan pola distribusi tiap fitur; fitur petal biasanya lebih diskriminatif dibanding sepal.</p></li>
+<li><p><strong>Bar Plot</strong> menegaskan distribusi kelas seimbang (balanced dataset), sehingga tidak ada bias jumlah kelas pada analisis awal.</p></li>
+<li><p><strong>Box Plot</strong> memudahkan identifikasi rentang nilai dan outlier, sekaligus perbandingan median antar spesies.</p></li>
+<li><p><strong>Column Statistics</strong> melengkapi visualisasi dengan angka statistik deskriptif untuk validasi interpretasi grafik.</p></li>
+</ul>
+<p>Dengan workflow ini, proses EDA pada Iris dapat dilakukan cepat, terstruktur, dan konsisten dengan analisis Python di bagian sebelumnya.</p>
+</section>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -454,6 +858,51 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macam-macam-data">Macam-macam Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-data-atribut">Tipe Data Atribut</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi">Implementasi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library-visualisasi">Import Library Visualisasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-program-implementasi-data-iris-csv-dari-kaggle">Kode Program Implementasi Data <em>IRIS.csv</em> dari Kaggle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bar-chart-jumlah-data-per-spesies">Bar Chart Jumlah Data per Spesies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-semua-fitur-numerik">Histogram Semua Fitur Numerik</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-semua-fitur-numerik-deteksi-outlier">Boxplot Semua Fitur Numerik (Deteksi Outlier)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-petal-length-vs-petal-width">Scatter Plot <code class="docutils literal notranslate"><span class="pre">petal_length</span></code> vs <code class="docutils literal notranslate"><span class="pre">petal_width</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-sepal-length-vs-sepal-width">Scatter Plot <code class="docutils literal notranslate"><span class="pre">sepal_length</span></code> vs <code class="docutils literal notranslate"><span class="pre">sepal_width</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-satu-fitur-histogram-kde-per-spesies">Distribusi Satu Fitur (Histogram + KDE) per Spesies</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-length">Distribusi Petal Length</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-width">Distribusi Petal Width</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-length">Distribusi Sepal Length</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-width">Distribusi Sepal Width</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-per-spesies">Boxplot per Spesies</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#petal-length-per-spesies">Petal Length per Spesies</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#petal-width-per-spesies">Petal Width per Spesies</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pairplot">Pairplot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-menggunakan-orange-data-mining">Implementasi Menggunakan Orange Data Mining</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lampiran-file-screenshot">Lampiran File &amp; Screenshot</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#struktur-workflow-orange-sesuai-file-ows">Struktur Workflow Orange (sesuai file .ows)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-hasil-implementasi-di-orange">Penjelasan Hasil Implementasi di Orange</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
