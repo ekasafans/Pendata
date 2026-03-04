@@ -1,0 +1,12 @@
+name: pendata-jb
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+    - jupyter-book==1.0.0
+    - ghp-import
+    - sphinx
+    - myst-parser
+    - sphinx-book-theme
