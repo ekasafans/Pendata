@@ -10,21 +10,21 @@ Lampiran gambar soal:
 
 <img alt="Soal WKNN Normalisasi" src="Assets/Pertemuan4/Soal%20Missing%20Values%20Inputation%20WKKN.png" />
 
-<img alt="Soal WKNN Normalisasi (Lampiran Tambahan)" src="Assets/Tugas/Missing%20Values%20%26%20Normalisasi/Soal%20Missing%20Values%20Inputation%20WKKN.png" />
+<img alt="Soal WKNN Normalisasi (Lampiran Tambahan)" src="Tugas/Missing Values & Normalisasi/Soal Missing Values Inputation WKKN.png" />
 
 Lampiran file Excel (siap diunduh/dibagikan):
 
-[Download Excel - Missing Value Metode WKKN dan Normalisasi](Assets/Tugas/Missing%20Values%20&%20Normalisasi/Missing%20Value%20Metode%20WKKN%20dan%20Normalisasi.xlsx)
+[Download Excel - Missing Value Metode WKKN dan Normalisasi](<Tugas/Missing Values & Normalisasi/Missing Value Metode WKKN dan Normalisasi.xlsx>)
 
 Preview sheet perhitungan manual (sesuai file Excel):
 
-<img alt="Sheet WKNN dan 3 normalisasi" src="Assets/Tugas/Missing%20Values%20%26%20Normalisasi/%7B08731576-79E4-47C6-B15D-8614811B6232%7D.png" />
+<img alt="Sheet WKNN dan 3 normalisasi" src="Tugas/Missing Values & Normalisasi/{08731576-79E4-47C6-B15D-8614811B6232}.png" />
 
-<img alt="Sheet parameter kontrol WKNN" src="Assets/Tugas/Missing%20Values%20%26%20Normalisasi/%7B92225BFD-2920-4144-A7E3-FCB8297CC627%7D.png" />
+<img alt="Sheet parameter kontrol WKNN" src="Tugas/Missing Values & Normalisasi/{92225BFD-2920-4144-A7E3-FCB8297CC627}.png" />
 
-<img alt="Sheet normalisasi Min-Max" src="Assets/Tugas/Missing%20Values%20%26%20Normalisasi/%7B9772C413-1BB5-45DC-876B-90A3F1BA2C97%7D.png" />
+<img alt="Sheet normalisasi Min-Max" src="Tugas/Missing Values & Normalisasi/{9772C413-1BB5-45DC-876B-90A3F1BA2C97}.png" />
 
-<img alt="Sheet tabel tetangga terdekat WKNN" src="Assets/Tugas/Missing%20Values%20%26%20Normalisasi/%7BBDD39292-E751-4943-9B4D-2584C2046196%7D.png" />
+<img alt="Sheet tabel tetangga terdekat WKNN" src="Tugas/Missing Values & Normalisasi/{BDD39292-E751-4943-9B4D-2584C2046196}.png" />
 
 Diberikan dataset berikut:
 
@@ -735,7 +735,7 @@ Normalisasi (atau *scaling*) adalah proses **mengubah skala nilai atribut** agar
 
 > **Rumus dari buku referensi** (García et al., 2015 — *Data Preprocessing in Data Mining*, hal. 47, Bagian 3.4):
 >
-> ![Rumus Min-Max Normalization — Persamaan (3.9) dari buku Data Preprocessing in Data Mining](Assets/Tugas/Missing%20Values%20%26%20Normalisasi/gambar_buku/rumus_minmax_3.9.png)
+> ![Rumus Min-Max Normalization — Persamaan (3.9) dari buku Data Preprocessing in Data Mining](<Tugas/Missing Values & Normalisasi/gambar_buku/rumus_minmax_3.9.png>)
 >
 > *Gambar: Formulasi Min-Max Normalization (Persamaan 3.9). Normalisasi min-max mentransformasi nilai atribut ke rentang [0, 1] atau rentang baru [new–min_A, new–max_A]. Rumus ini memetakan nilai $v$ secara linear berdasarkan nilai minimum dan maksimum asli dari atribut $A$. Formulasi alternatif menggunakan base value $\text{new–min}_A$ dan rentang baru $R$ untuk transformasi ke interval yang diinginkan.*
 
@@ -784,7 +784,7 @@ $\min = 20$, $\max = 40$
 
 > **Rumus dari buku referensi** (García et al., 2015 — *Data Preprocessing in Data Mining*, hal. 47–48, Bagian 3.4.2):
 >
-> ![Rumus Z-Score Normalization — Persamaan (3.10) dari buku Data Preprocessing in Data Mining](Assets/Tugas/Missing%20Values%20%26%20Normalisasi/gambar_buku/rumus_zscore_3.10.png)
+> ![Rumus Z-Score Normalization — Persamaan (3.10) dari buku Data Preprocessing in Data Mining](<Tugas/Missing Values & Normalisasi/gambar_buku/rumus_zscore_3.10.png>)
 >
 > *Gambar: Formulasi Z-Score Normalization (Persamaan 3.10). Pada beberapa kasus, min-max normalization tidak bisa diterapkan — misalnya ketika nilai minimum/maksimum atribut $A$ tidak diketahui, atau ketika ada outlier yang membias hasil. Z-Score menormalisasi nilai $v$ menggunakan mean ($\bar{A}$) dan standar deviasi ($\sigma_A$), sehingga hasil transformasi memiliki mean = 0 dan standar deviasi = 1.*
 
@@ -838,7 +838,7 @@ $\sigma_A = \sqrt{\frac{(20{-}30)^2 + (25{-}30)^2 + (30{-}30)^2 + (35{-}30)^2 + 
 
 > **Rumus dari buku referensi** (García et al., 2015 — *Data Preprocessing in Data Mining*, hal. 48, Bagian 3.4.2–3.4.3):
 >
-> ![Rumus Standar Deviasi, Mean Absolute Deviation, dan Decimal Scaling — Persamaan (3.12)–(3.15) dari buku Data Preprocessing in Data Mining](Assets/Tugas/Missing%20Values%20%26%20Normalisasi/gambar_buku/rumus_stddev_decimal_scaling_3.12-3.15.png)
+> ![Rumus Standar Deviasi, Mean Absolute Deviation, dan Decimal Scaling — Persamaan (3.12)–(3.15) dari buku Data Preprocessing in Data Mining](<Tugas/Missing Values & Normalisasi/gambar_buku/rumus_stddev_decimal_scaling_3.12-3.15.png>)
 >
 > *Gambar: Halaman 48 buku referensi memuat beberapa rumus penting:*
 > - *Persamaan (3.12):* $\sigma_A = +\sqrt{\frac{1}{n}\sum_{i=1}^{n}(v_i - \bar{A})^2}$ — *rumus standar deviasi populasi untuk Z-Score.*
