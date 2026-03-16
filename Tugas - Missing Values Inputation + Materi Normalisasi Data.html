@@ -1,0 +1,2747 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Tugas — Missing Values (WKNN) &amp; Normalisasi Data &#8212; Penambangan Data A - Materi Perkuliahan</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas - Missing Values Inputation + Materi Normalisasi Data';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tugas: Normalisasi Data Min-Max &amp; WKNN (Weighted K-Nearest Neighbor)" href="Tugas_WKNN_Normalisasi.html" />
+    <link rel="prev" title="Pertemuan 14 - Studi Kasus &amp; Review" href="pertemuan14.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data A - Materi Perkuliahan - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Penambangan Data A - Materi Perkuliahan - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Penambangan Data (Data Mining)
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pertemuan1.html">Pertemuan 1 - Pengantar Data Mining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="pertemuan2.html">Pertemuan 2 - Memahami Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan_3_data_preparation_markdown_saja.html">DATA PREPARATION — PERTEMUAN 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan4.html">Pertemuan 4 - Distribusi &amp; Statistik Deskriptif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan5.html">Pertemuan 5 - Mengukur Jarak/Similaritas Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan6.html">Pertemuan 6 - Praproses Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan7.html">Pertemuan 7 - Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan8.html">Pertemuan 8 - UTS (Ujian Tengah Semester)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan9.html">Pertemuan 9 - Klasifikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan10.html">Pertemuan 10 - Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan11.html">Pertemuan 11 - Asosiasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan12.html">Pertemuan 12 - Regresi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan13.html">Pertemuan 13 - Evaluasi Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan14.html">Pertemuan 14 - Studi Kasus &amp; Review</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tugas — Missing Values (WKNN) &amp; Normalisasi Data</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="Tugas_WKNN_Normalisasi.html">Notebook: WKNN &amp; Normalisasi</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ZekkCode/Pendata.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ZekkCode/Pendata.git/issues/new?title=Issue%20on%20page%20%2FTugas - Missing Values Inputation + Materi Normalisasi Data.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tugas - Missing Values Inputation + Materi Normalisasi Data.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tugas — Missing Values (WKNN) & Normalisasi Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tugas — Missing Values (WKNN) &amp; Normalisasi Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#struktur-tugas-sesuai-notebook">Struktur Tugas (Sesuai Notebook)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soal">1. Soal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jawaban-manual">2. Jawaban Manual</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jawaban-coding-python-program-lengkap">3. Jawaban Coding (Python) - Program Lengkap</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-normalisasi">Tabel normalisasi</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-jarak-ke-data-no-7">Tabel jarak ke data NO=7</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tiga-tetangga-terdekat-yang-dipakai">Tiga tetangga terdekat yang dipakai</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-weighted-voting">Hasil weighted voting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-data-dengan-soal-yang-sama">Normalisasi Data dengan Soal yang Sama</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-min-max-normalization">A. Min-Max Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">✍️ Jawaban Manual</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jawaban-coding">💻 Jawaban Coding</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-z-score-normalization-standardization">B. Z-Score Normalization (Standardization)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">✍️ Jawaban Manual</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">💻 Jawaban Coding</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-decimal-scaling-normalization">C. Decimal Scaling Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">✍️ Jawaban Manual</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">💻 Jawaban Coding</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-ketiga-metode-pada-dataset-soal">Perbandingan Ketiga Metode pada Dataset Soal</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daftar-isi">Daftar Isi</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-values-imputasi-wknn">1. Missing Values &amp; Imputasi WKNN</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-missing-values">1.1 Apa Itu Missing Values?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strategi-menangani-missing-values">1.2 Strategi Menangani Missing Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputasi-knn-standar-vs-wknn">1.3 Imputasi KNN Standar vs WKNN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-imputasi-standar">KNN Imputasi (Standar)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wknn-imputasi-weighted-knn">WKNN Imputasi (Weighted KNN)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-wknn">1.4 Rumus WKNN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-1-ukuran-kemiripan-similarity">Rumus (1) — Ukuran Kemiripan (<em>Similarity</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-2-estimasi-nilai-hilang-weighted-average">Rumus (2) — Estimasi Nilai Hilang (Weighted Average)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-manual-wknn-data-numerik">1.5 Contoh Perhitungan Manual WKNN (Data Numerik)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-harga-sewa-kos">Dataset: Harga Sewa Kos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penentuan-k">Penentuan K</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-hitung-jarak-dan-kemiripan-s-i">Langkah 1 — Hitung Jarak dan Kemiripan (<span class="math notranslate nohighlight">\(s_i\)</span>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-estimasi-weighted-average">Langkah 2 — Hitung Estimasi (Weighted Average)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-wknn-pada-data-klasifikasi-same-class-weighting">1.6 Contoh WKNN pada Data Klasifikasi (Same-Class Weighting)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-data-pelamar-kerja">Dataset: Data Pelamar Kerja</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-hitung-jarak-kemiripan">Langkah 1 — Hitung Jarak &amp; Kemiripan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-filter-same-class-kelas-1">Langkah 2 — Filter Same-Class (Kelas 1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-estimasi-hanya-kelas-1">Langkah 3 — Hitung Estimasi (Hanya Kelas 1)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-data">2. Normalisasi Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-perlu-normalisasi">2.1 Mengapa Perlu Normalisasi?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macam-macam-normalisasi-data">2.2 Macam-Macam Normalisasi Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">A. Min-Max Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-min-max">Contoh Perhitungan Min-Max</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">B. Z-Score Normalization (Standardization)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-z-score">Contoh Perhitungan Z-Score</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">C. Decimal Scaling Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-decimal-scaling">Contoh Perhitungan Decimal Scaling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-ketiga-metode">Perbandingan Ketiga Metode</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-komparasi-data-yang-sama">Contoh Komparasi (Data yang Sama)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-dengan-python-sklearn">Implementasi dengan Python &amp; Sklearn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">A. Min-Max Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">B. Z-Score Normalization (Standardization)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">C. Decimal Scaling Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-contoh-lengkap-normalisasi-dataset-multi-kolom">D. Contoh Lengkap — Normalisasi Dataset Multi-Kolom</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referensi">Referensi</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tugas-missing-values-wknn-normalisasi-data">
+<h1>Tugas — Missing Values (WKNN) &amp; Normalisasi Data<a class="headerlink" href="#tugas-missing-values-wknn-normalisasi-data" title="Link to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="struktur-tugas-sesuai-notebook">
+<h2>Struktur Tugas (Sesuai Notebook)<a class="headerlink" href="#struktur-tugas-sesuai-notebook" title="Link to this heading">#</a></h2>
+<section id="soal">
+<h3>1. Soal<a class="headerlink" href="#soal" title="Link to this heading">#</a></h3>
+<p>Lampiran gambar soal:</p>
+<img alt="Soal WKNN Normalisasi" src="Assets/Pertemuan4/Soal%20Missing%20Values%20Inputation%20WKKN.png" />
+<img alt="Soal WKNN Normalisasi (Lampiran Tambahan)" src="Tugas/Missing%20Values%20%26%20Normalisasi/Soal%20Missing%20Values%20Inputation%20WKKN.png" />
+<p>Lampiran file Excel (siap diunduh/dibagikan):</p>
+<p><a class="reference download internal" download="" href="_downloads/fa1c90d7ac1a6da1b8c9f4a58a7a41bd/Missing%20Value%20Metode%20WKKN%20dan%20Normalisasi.xlsx"><span class="xref download myst">Download Excel - Missing Value Metode WKKN dan Normalisasi</span></a></p>
+<p>Preview sheet perhitungan manual (sesuai file Excel):</p>
+<img alt="Sheet WKNN dan 3 normalisasi" src="Tugas/Missing%20Values%20%26%20Normalisasi/%7B08731576-79E4-47C6-B15D-8614811B6232%7D.png" />
+<img alt="Sheet parameter kontrol WKNN" src="Tugas/Missing%20Values%20%26%20Normalisasi/%7B92225BFD-2920-4144-A7E3-FCB8297CC627%7D.png" />
+<img alt="Sheet normalisasi Min-Max" src="Tugas/Missing%20Values%20%26%20Normalisasi/%7B9772C413-1BB5-45DC-876B-90A3F1BA2C97%7D.png" />
+<img alt="Sheet tabel tetangga terdekat WKNN" src="Tugas/Missing%20Values%20%26%20Normalisasi/%7BBDD39292-E751-4943-9B4D-2584C2046196%7D.png" />
+<p>Diberikan dataset berikut:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>IPK</p></th>
+<th class="head"><p>PO</p></th>
+<th class="head"><p>JMLH</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>200000</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>300000</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>200000</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>2</p></td>
+<td><p>200000</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>300000</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>4</p></td>
+<td><p>400000</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>2</p></td>
+<td><p>300000</p></td>
+<td><p>?</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Pertanyaan:</p>
+<ol class="arabic simple">
+<li><p>Gunakan WKNN dengan <span class="math notranslate nohighlight">\(k=3\)</span> untuk memprediksi nilai JMLH pada NO=7.</p></li>
+<li><p>Lakukan normalisasi Min-Max, Z-Score, dan Decimal Scaling pada fitur IPK, PO, dan JMLH.</p></li>
+</ol>
+<p>Catatan pengerjaan:</p>
+<ul class="simple">
+<li><p>Pada data awal, JMLH NO=7 memang belum diketahui (ditulis ?).</p></li>
+<li><p>Setelah dihitung dengan WKNN, diperoleh JMLH NO=7 = 3.</p></li>
+<li><p>Nilai 3 tersebut yang dipakai pada tahap normalisasi manual dan coding.</p></li>
+</ul>
+</section>
+<section id="jawaban-manual">
+<h3>2. Jawaban Manual<a class="headerlink" href="#jawaban-manual" title="Link to this heading">#</a></h3>
+<p>Pada pengerjaan manual ini, nilai NO=7 diisi menggunakan hasil imputasi WKNN, yaitu:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{\text{JMLH NO=7} = 3}
+\]</div>
+<p>Setelah nilai JMLH NO=7 diketahui, normalisasi dapat dihitung untuk seluruh baris data.</p>
+<p>Rumus Min-Max:</p>
+<div class="math notranslate nohighlight">
+\[
+x' = \frac{x - x_{\min}}{x_{\max} - x_{\min}}
+\]</div>
+<p>Hasil normalisasi (ringkas):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>IPK’</p></th>
+<th class="head"><p>PO’</p></th>
+<th class="head"><p>JMLH’</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>0</p></td>
+<td><p>0.5</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Rumus jarak Euclidean:</p>
+<div class="math notranslate nohighlight">
+\[
+d(a,b) = \sqrt{\sum_{i=1}^{n}(a_i - b_i)^2}
+\]</div>
+<p>Jarak data NO=7 ke data latih:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(d(7,1)=0.5\)</span>, <span class="math notranslate nohighlight">\(d(7,2)=0.5\)</span>, <span class="math notranslate nohighlight">\(d(7,3)\approx1.118\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(d(7,4)=0.5\)</span>, <span class="math notranslate nohighlight">\(d(7,5)=0.5\)</span>, <span class="math notranslate nohighlight">\(d(7,6)\approx1.118\)</span></p></li>
+</ul>
+<p>Ambil <span class="math notranslate nohighlight">\(k=3\)</span> tetangga terdekat: NO=1, NO=2, NO=4.</p>
+<p>Rumus bobot WKNN:</p>
+<div class="math notranslate nohighlight">
+\[
+w_i = \frac{1}{d_i^2}
+\]</div>
+<p>Karena semua <span class="math notranslate nohighlight">\(d=0.5\)</span> pada 3 tetangga terpilih, maka tiap bobot <span class="math notranslate nohighlight">\(w=4\)</span>.</p>
+<p>Weighted voting:</p>
+<ul class="simple">
+<li><p>Kelas JMLH=2: total bobot <span class="math notranslate nohighlight">\(4\)</span></p></li>
+<li><p>Kelas JMLH=3: total bobot <span class="math notranslate nohighlight">\(8\)</span></p></li>
+</ul>
+<p>Kesimpulan manual:</p>
+<ul class="simple">
+<li><p>Hasil imputasi WKNN NO=7 adalah kelas 3.</p></li>
+<li><p>Nilai tersebut dipakai pada tabel normalisasi (Min-Max, Z-Score, Decimal Scaling).</p></li>
+<li><p>Hasil pada dokumen ini sudah disesuaikan dengan sheet Excel lampiran.</p></li>
+</ul>
+<p>Prediksi akhir:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{\text{JMLH} = 3}
+\]</div>
+</section>
+<section id="jawaban-coding-python-program-lengkap">
+<h3>3. Jawaban Coding (Python) - Program Lengkap<a class="headerlink" href="#jawaban-coding-python-program-lengkap" title="Link to this heading">#</a></h3>
+<p>Bagian ini bukan hanya potongan sel, tetapi program Python utuh yang menghasilkan nilai normalisasi, jarak, bobot, dan prediksi yang sama seperti jawaban manual.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;NO&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="s1">&#39;IPK&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="s1">&#39;PO&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">200000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">,</span> <span class="mi">400000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">],</span>
+    <span class="s1">&#39;JMLH&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">min_max</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">s</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+
+<span class="n">df_norm</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_norm</span><span class="p">[</span><span class="s1">&#39;IPK_norm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_max</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;IPK&#39;</span><span class="p">])</span>
+<span class="n">df_norm</span><span class="p">[</span><span class="s1">&#39;PO_norm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_max</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;PO&#39;</span><span class="p">])</span>
+<span class="n">df_norm</span><span class="p">[</span><span class="s1">&#39;JMLH_norm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+
+<span class="n">train</span> <span class="o">=</span> <span class="n">df_norm</span><span class="p">[</span><span class="n">df_norm</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">df_norm</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_norm</span><span class="p">[</span><span class="s1">&#39;NO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;IPK_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;PO_norm&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">train</span><span class="p">[</span><span class="s1">&#39;jarak&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;IPK_norm&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">query</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;PO_norm&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">query</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;jarak&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">knn</span><span class="p">[</span><span class="s1">&#39;bobot&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">knn</span><span class="p">[</span><span class="s1">&#39;jarak&#39;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">class_weights</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">knn</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">class_weights</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">])]</span> <span class="o">+=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;bobot&#39;</span><span class="p">]</span>
+
+<span class="n">pred</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">class_weights</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">class_weights</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+
+<span class="c1"># Isi nilai missing NO=7 dengan hasil prediksi WKNN agar tabel normalisasi final lengkap.</span>
+<span class="n">df_norm_final</span> <span class="o">=</span> <span class="n">df_norm</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_norm_final</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_norm_final</span><span class="p">[</span><span class="s1">&#39;NO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;JMLH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pred</span>
+<span class="n">df_norm_final</span><span class="p">[</span><span class="s1">&#39;JMLH_norm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="n">df_norm_final</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span>
+    <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=== TABEL NORMALISASI ===&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_norm_final</span><span class="p">[[</span><span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;IPK_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;PO_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;JMLH_norm&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">=== TABEL JARAK ===&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">[[</span><span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;IPK_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;PO_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;JMLH&#39;</span><span class="p">,</span> <span class="s1">&#39;jarak&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;jarak&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">=== 3 TETANGGA TERDEKAT ===&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">knn</span><span class="p">[[</span><span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;JMLH&#39;</span><span class="p">,</span> <span class="s1">&#39;jarak&#39;</span><span class="p">,</span> <span class="s1">&#39;bobot&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">=== WEIGHTED VOTING ===&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">kelas</span><span class="p">,</span> <span class="n">bobot</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">class_weights</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;JMLH = </span><span class="si">{</span><span class="n">kelas</span><span class="si">}</span><span class="s1">, total bobot = </span><span class="si">{</span><span class="n">bobot</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Prediksi JMLH NO=7 = </span><span class="si">{</span><span class="n">pred</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Hasil dari program di atas:</p>
+<section id="tabel-normalisasi">
+<h4>Tabel normalisasi<a class="headerlink" href="#tabel-normalisasi" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>IPK’</p></th>
+<th class="head"><p>PO’</p></th>
+<th class="head"><p>JMLH’</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+<td><p>1.0</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>1.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>1.0</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>1.0</p></td>
+<td><p>1.0</p></td>
+<td><p>1.0</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>0.0</p></td>
+<td><p>0.5</p></td>
+<td><p>1.0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="tabel-jarak-ke-data-no-7">
+<h4>Tabel jarak ke data NO=7<a class="headerlink" href="#tabel-jarak-ke-data-no-7" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>JMLH</p></th>
+<th class="head"><p>Jarak</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>0.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>0.5</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>3</p></td>
+<td><p>0.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>2</p></td>
+<td><p>0.5</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>1.118</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>3</p></td>
+<td><p>1.118</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="tiga-tetangga-terdekat-yang-dipakai">
+<h4>Tiga tetangga terdekat yang dipakai<a class="headerlink" href="#tiga-tetangga-terdekat-yang-dipakai" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>JMLH</p></th>
+<th class="head"><p>Jarak</p></th>
+<th class="head"><p>Bobot</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>0.5</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>0.5</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>3</p></td>
+<td><p>0.5</p></td>
+<td><p>4</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="hasil-weighted-voting">
+<h4>Hasil weighted voting<a class="headerlink" href="#hasil-weighted-voting" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>JMLH = 2, total bobot = 4</p></li>
+<li><p>JMLH = 3, total bobot = 8</p></li>
+</ul>
+<p>Sehingga hasil program sama dengan jawaban manual, yaitu:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{\text{Prediksi JMLH NO=7 = 3}}
+\]</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="normalisasi-data-dengan-soal-yang-sama">
+<h2>Normalisasi Data dengan Soal yang Sama<a class="headerlink" href="#normalisasi-data-dengan-soal-yang-sama" title="Link to this heading">#</a></h2>
+<p>Berikut adalah penerapan <strong>tiga metode normalisasi</strong> (Min-Max, Z-Score, Decimal Scaling) terhadap dataset soal di atas. WKNN telah memprediksi <strong>JMLH NO=7 = 3</strong>, sehingga nilai tersebut kini diikutsertakan dalam normalisasi semua kolom (IPK, PO, dan JMLH).</p>
+<hr class="docutils" />
+<section id="a-min-max-normalization">
+<h3>A. Min-Max Normalization<a class="headerlink" href="#a-min-max-normalization" title="Link to this heading">#</a></h3>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+x' = \frac{x - x_{\min}}{x_{\max} - x_{\min}}
+\]</div>
+<section id="id1">
+<h4>✍️ Jawaban Manual<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p><strong>Nilai min &amp; max:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Min</p></th>
+<th class="head"><p>Max</p></th>
+<th class="head"><p>Range</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IPK</p></td>
+<td><p>2</p></td>
+<td><p>4</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>PO</p></td>
+<td><p>200.000</p></td>
+<td><p>400.000</p></td>
+<td><p>200.000</p></td>
+</tr>
+<tr class="row-even"><td><p>JMLH</p></td>
+<td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Perhitungan per data:</strong></p>
+<p>IPK:
+$<span class="math notranslate nohighlight">\(IPK'_1 = \frac{2-2}{4-2}=0, \quad IPK'_2 = \frac{3-2}{2}=0{,}5, \quad IPK'_3 = \frac{4-2}{2}=1\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(IPK'_4 = 0, \quad IPK'_5 = 0{,}5, \quad IPK'_6 = 1, \quad IPK'_7 = 0\)</span>$</p>
+<p>PO:
+$<span class="math notranslate nohighlight">\(PO'_1 = \frac{200000-200000}{200000}=0, \quad PO'_2 = \frac{100000}{200000}=0{,}5, \quad PO'_3 = 0\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(PO'_4 = 0, \quad PO'_5 = 0{,}5, \quad PO'_6 = \frac{200000}{200000}=1, \quad PO'_7 = 0{,}5\)</span>$</p>
+<p>JMLH (termasuk NO=7 dengan hasil prediksi WKNN = 3):
+$<span class="math notranslate nohighlight">\(JMLH'_1 = \frac{2-2}{1}=0, \quad JMLH'_2 = \frac{3-2}{1}=1, \quad JMLH'_3 = 0\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(JMLH'_4 = 1, \quad JMLH'_5 = 0, \quad JMLH'_6 = 1, \quad JMLH'_7 = \frac{3-2}{1}=1\)</span>$</p>
+<p><strong>Tabel Hasil Manual Min-Max:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>IPK</p></th>
+<th class="head"><p>PO</p></th>
+<th class="head"><p>JMLH</p></th>
+<th class="head"><p>IPK’</p></th>
+<th class="head"><p>PO’</p></th>
+<th class="head"><p>JMLH’</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>200000</p></td>
+<td><p>2</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>300000</p></td>
+<td><p>3</p></td>
+<td><p>0,5</p></td>
+<td><p>0,5</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>200000</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>2</p></td>
+<td><p>200000</p></td>
+<td><p>3</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>300000</p></td>
+<td><p>2</p></td>
+<td><p>0,5</p></td>
+<td><p>0,5</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>4</p></td>
+<td><p>400000</p></td>
+<td><p>3</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>2</p></td>
+<td><p>300000</p></td>
+<td><p><strong>3</strong></p></td>
+<td><p>0</p></td>
+<td><p>0,5</p></td>
+<td><p><strong>1</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="jawaban-coding">
+<h4>💻 Jawaban Coding<a class="headerlink" href="#jawaban-coding" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;NO&#39;</span><span class="p">:</span>   <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="s1">&#39;IPK&#39;</span><span class="p">:</span>  <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="s1">&#39;PO&#39;</span><span class="p">:</span>   <span class="p">[</span><span class="mi">200000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">,</span> <span class="mi">400000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">],</span>
+    <span class="s1">&#39;JMLH&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">min_max</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">series</span> <span class="o">-</span> <span class="n">series</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">series</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+
+<span class="n">df_mm</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_mm</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_mm</span><span class="p">[</span><span class="s1">&#39;NO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;JMLH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># isi dengan hasil prediksi WKNN</span>
+<span class="n">df_mm</span><span class="p">[</span><span class="s1">&#39;IPK_mm&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">min_max</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;IPK&#39;</span><span class="p">])</span>
+<span class="n">df_mm</span><span class="p">[</span><span class="s1">&#39;PO_mm&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="n">min_max</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;PO&#39;</span><span class="p">])</span>
+<span class="n">df_mm</span><span class="p">[</span><span class="s1">&#39;JMLH_mm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_max</span><span class="p">(</span><span class="n">df_mm</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">])</span>  <span class="c1"># min=2, max=3 (tidak berubah)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df_mm</span><span class="p">[[</span><span class="s1">&#39;NO&#39;</span><span class="p">,</span><span class="s1">&#39;IPK&#39;</span><span class="p">,</span><span class="s1">&#39;IPK_mm&#39;</span><span class="p">,</span><span class="s1">&#39;PO&#39;</span><span class="p">,</span><span class="s1">&#39;PO_mm&#39;</span><span class="p">,</span><span class="s1">&#39;JMLH&#39;</span><span class="p">,</span><span class="s1">&#39;JMLH_mm&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">floatfmt</span><span class="o">=</span><span class="s1">&#39;.4f&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>IPK</p></th>
+<th class="head"><p>IPK_mm</p></th>
+<th class="head"><p>PO</p></th>
+<th class="head"><p>PO_mm</p></th>
+<th class="head"><p>JMLH</p></th>
+<th class="head"><p>JMLH_mm</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>0.0000</p></td>
+<td><p>200000</p></td>
+<td><p>0.0000</p></td>
+<td><p>2.0</p></td>
+<td><p>0.0000</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>0.5000</p></td>
+<td><p>300000</p></td>
+<td><p>0.5000</p></td>
+<td><p>3.0</p></td>
+<td><p>1.0000</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>1.0000</p></td>
+<td><p>200000</p></td>
+<td><p>0.0000</p></td>
+<td><p>2.0</p></td>
+<td><p>0.0000</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>2</p></td>
+<td><p>0.0000</p></td>
+<td><p>200000</p></td>
+<td><p>0.0000</p></td>
+<td><p>3.0</p></td>
+<td><p>1.0000</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>0.5000</p></td>
+<td><p>300000</p></td>
+<td><p>0.5000</p></td>
+<td><p>2.0</p></td>
+<td><p>0.0000</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>4</p></td>
+<td><p>1.0000</p></td>
+<td><p>400000</p></td>
+<td><p>1.0000</p></td>
+<td><p>3.0</p></td>
+<td><p>1.0000</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>2</p></td>
+<td><p>0.0000</p></td>
+<td><p>300000</p></td>
+<td><p>0.5000</p></td>
+<td><p>3.0</p></td>
+<td><p>1.0000</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p>Hasil coding sama dengan jawaban manual.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="b-z-score-normalization-standardization">
+<h3>B. Z-Score Normalization (Standardization)<a class="headerlink" href="#b-z-score-normalization-standardization" title="Link to this heading">#</a></h3>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+x' = \frac{x - \bar{x}}{\sigma}
+\]</div>
+<section id="id2">
+<h4>✍️ Jawaban Manual<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<p><strong>Hitung mean dan standar deviasi populasi setiap fitur (7 data untuk IPK &amp; PO; 6 data latih untuk JMLH):</strong></p>
+<p><strong>IPK</strong> (<span class="math notranslate nohighlight">\(n=7\)</span>):
+$<span class="math notranslate nohighlight">\(\bar{x}_{IPK} = \frac{2+3+4+2+3+4+2}{7} = \frac{20}{7} \approx 2{,}857\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(\sigma_{IPK} = \sqrt{\frac{(2{-}2{,}857)^2 \times 3 + (3{-}2{,}857)^2 \times 2 + (4{-}2{,}857)^2 \times 2}{7}} \approx \sqrt{\frac{2{,}204+0{,}041+2{,}612}{7}} \approx \sqrt{0{,}694} \approx 0{,}833\)</span>$</p>
+<p><strong>PO</strong> (<span class="math notranslate nohighlight">\(n=7\)</span>):
+$<span class="math notranslate nohighlight">\(\bar{x}_{PO} = \frac{200000 \times 3 + 300000 \times 3 + 400000}{7} = \frac{1900000}{7} \approx 271428{,}6\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(\sigma_{PO} \approx \sqrt{\frac{3(200000-271429)^2 + 3(300000-271429)^2 + (400000-271429)^2}{7}} \approx 67937{,}5\)</span>$</p>
+<p><strong>JMLH</strong> (<span class="math notranslate nohighlight">\(n=6\)</span>, data latih):
+$<span class="math notranslate nohighlight">\(\bar{x}_{JMLH} = \frac{2+3+2+3+2+3}{6} = \frac{15}{6} = 2{,}5\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(\sigma_{JMLH} = \sqrt{\frac{3(2-2{,}5)^2 + 3(3-2{,}5)^2}{6}} = \sqrt{\frac{3(0{,}25)+3(0{,}25)}{6}} = \sqrt{0{,}25} = 0{,}5\)</span>$</p>
+<p><strong>Perhitungan Z-Score JMLH (parameter dari data latih, diterapkan ke semua termasuk NO=7 prediksi WKNN=3):</strong>
+$<span class="math notranslate nohighlight">\(JMLH'_1 = \frac{2-2{,}5}{0{,}5} = -1, \quad JMLH'_2 = \frac{3-2{,}5}{0{,}5} = 1, \quad JMLH'_3 = -1\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(JMLH'_4 = 1, \quad JMLH'_5 = -1, \quad JMLH'_6 = 1, \quad JMLH'_7 = \frac{3-2{,}5}{0{,}5} = 1\)</span>$</p>
+<p><strong>Tabel Hasil Manual Z-Score:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>IPK’</p></th>
+<th class="head"><p>PO’</p></th>
+<th class="head"><p>JMLH’</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>−1,031</p></td>
+<td><p>−1,053</p></td>
+<td><p>−1</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>0,172</p></td>
+<td><p>0,421</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>1,374</p></td>
+<td><p>−1,053</p></td>
+<td><p>−1</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>−1,031</p></td>
+<td><p>−1,053</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>0,172</p></td>
+<td><p>0,421</p></td>
+<td><p>−1</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>1,374</p></td>
+<td><p>1,895</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>−1,031</p></td>
+<td><p>0,421</p></td>
+<td><p><strong>1</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id3">
+<h4>💻 Jawaban Coding<a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;NO&#39;</span><span class="p">:</span>   <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="s1">&#39;IPK&#39;</span><span class="p">:</span>  <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="s1">&#39;PO&#39;</span><span class="p">:</span>   <span class="p">[</span><span class="mi">200000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">,</span> <span class="mi">400000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">],</span>
+    <span class="s1">&#39;JMLH&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">z_score</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">series</span> <span class="o">-</span> <span class="n">series</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">series</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># standar deviasi populasi</span>
+
+<span class="n">df_zs</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_zs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_zs</span><span class="p">[</span><span class="s1">&#39;NO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;JMLH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># isi dengan hasil prediksi WKNN</span>
+<span class="n">df_zs</span><span class="p">[</span><span class="s1">&#39;IPK_z&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">z_score</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;IPK&#39;</span><span class="p">])</span>
+<span class="n">df_zs</span><span class="p">[</span><span class="s1">&#39;PO_z&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="n">z_score</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;PO&#39;</span><span class="p">])</span>
+<span class="c1"># Pakai parameter data latih (mean=2,5 ; σ=0,5), terapkan ke semua termasuk NO=7</span>
+<span class="n">jmlh_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">df_zs</span><span class="p">[</span><span class="s1">&#39;JMLH_z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_zs</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">jmlh_train</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">jmlh_train</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df_zs</span><span class="p">[[</span><span class="s1">&#39;NO&#39;</span><span class="p">,</span><span class="s1">&#39;IPK&#39;</span><span class="p">,</span><span class="s1">&#39;IPK_z&#39;</span><span class="p">,</span><span class="s1">&#39;PO&#39;</span><span class="p">,</span><span class="s1">&#39;PO_z&#39;</span><span class="p">,</span><span class="s1">&#39;JMLH&#39;</span><span class="p">,</span><span class="s1">&#39;JMLH_z&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">floatfmt</span><span class="o">=</span><span class="s1">&#39;.4f&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>IPK</p></th>
+<th class="head"><p>IPK_z</p></th>
+<th class="head"><p>PO</p></th>
+<th class="head"><p>PO_z</p></th>
+<th class="head"><p>JMLH</p></th>
+<th class="head"><p>JMLH_z</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>−1.0328</p></td>
+<td><p>200000</p></td>
+<td><p>−1.0541</p></td>
+<td><p>2.0</p></td>
+<td><p>−1.0000</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>0.1721</p></td>
+<td><p>300000</p></td>
+<td><p>0.4217</p></td>
+<td><p>3.0</p></td>
+<td><p>1.0000</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>1.3765</p></td>
+<td><p>200000</p></td>
+<td><p>−1.0541</p></td>
+<td><p>2.0</p></td>
+<td><p>−1.0000</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>2</p></td>
+<td><p>−1.0328</p></td>
+<td><p>200000</p></td>
+<td><p>−1.0541</p></td>
+<td><p>3.0</p></td>
+<td><p>1.0000</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>0.1721</p></td>
+<td><p>300000</p></td>
+<td><p>0.4217</p></td>
+<td><p>2.0</p></td>
+<td><p>−1.0000</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>4</p></td>
+<td><p>1.3765</p></td>
+<td><p>400000</p></td>
+<td><p>1.8975</p></td>
+<td><p>3.0</p></td>
+<td><p>1.0000</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>2</p></td>
+<td><p>−1.0328</p></td>
+<td><p>300000</p></td>
+<td><p>0.4217</p></td>
+<td><p>3.0</p></td>
+<td><p>1.0000</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p>Nilai JMLH Z-Score konsisten: data bernilai 2 → −1, data bernilai 3 → +1, karena mean=2,5 dan σ=0,5. Termasuk NO=7 (prediksi WKNN=3) → JMLH_z = 1.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="c-decimal-scaling-normalization">
+<h3>C. Decimal Scaling Normalization<a class="headerlink" href="#c-decimal-scaling-normalization" title="Link to this heading">#</a></h3>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+x' = \frac{x}{10^j}, \quad j = \lceil \log_{10}(\max|x|) \rceil
+\]</div>
+<section id="id4">
+<h4>✍️ Jawaban Manual<a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
+<p><strong>Nilai absolut terbesar setiap fitur:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>max|x|</p></th>
+<th class="head"><p>log₁₀</p></th>
+<th class="head"><p>j</p></th>
+<th class="head"><p>Pembagi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IPK</p></td>
+<td><p>4</p></td>
+<td><p>0,602</p></td>
+<td><p>1</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-odd"><td><p>PO</p></td>
+<td><p>400000</p></td>
+<td><p>5,602</p></td>
+<td><p>6</p></td>
+<td><p>1.000.000</p></td>
+</tr>
+<tr class="row-even"><td><p>JMLH</p></td>
+<td><p>3</p></td>
+<td><p>0,477</p></td>
+<td><p>1</p></td>
+<td><p>10</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Perhitungan:</strong></p>
+<div class="math notranslate nohighlight">
+\[IPK'_1 = \frac{2}{10}=0{,}2, \quad IPK'_2 = \frac{3}{10}=0{,}3, \quad IPK'_3 = \frac{4}{10}=0{,}4\]</div>
+<div class="math notranslate nohighlight">
+\[IPK'_4 = 0{,}2, \quad IPK'_5 = 0{,}3, \quad IPK'_6 = 0{,}4, \quad IPK'_7 = 0{,}2\]</div>
+<div class="math notranslate nohighlight">
+\[PO'_1 = \frac{200000}{1000000}=0{,}2, \quad PO'_2 = 0{,}3, \quad PO'_3 = 0{,}2\]</div>
+<div class="math notranslate nohighlight">
+\[PO'_4 = 0{,}2, \quad PO'_5 = 0{,}3, \quad PO'_6 = 0{,}4, \quad PO'_7 = 0{,}3\]</div>
+<div class="math notranslate nohighlight">
+\[JMLH'_1 = \frac{2}{10}=0{,}2, \quad JMLH'_2 = \frac{3}{10}=0{,}3, \quad JMLH'_3 = 0{,}2\]</div>
+<div class="math notranslate nohighlight">
+\[JMLH'_4 = 0{,}3, \quad JMLH'_5 = 0{,}2, \quad JMLH'_6 = 0{,}3, \quad JMLH'_7 = \frac{3}{10}=0{,}3\]</div>
+<p><strong>Tabel Hasil Manual Decimal Scaling:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>IPK</p></th>
+<th class="head"><p>PO</p></th>
+<th class="head"><p>JMLH</p></th>
+<th class="head"><p>IPK’</p></th>
+<th class="head"><p>PO’</p></th>
+<th class="head"><p>JMLH’</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>200000</p></td>
+<td><p>2</p></td>
+<td><p>0,2</p></td>
+<td><p>0,2</p></td>
+<td><p>0,2</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>300000</p></td>
+<td><p>3</p></td>
+<td><p>0,3</p></td>
+<td><p>0,3</p></td>
+<td><p>0,3</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>200000</p></td>
+<td><p>2</p></td>
+<td><p>0,4</p></td>
+<td><p>0,2</p></td>
+<td><p>0,2</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>2</p></td>
+<td><p>200000</p></td>
+<td><p>3</p></td>
+<td><p>0,2</p></td>
+<td><p>0,2</p></td>
+<td><p>0,3</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>300000</p></td>
+<td><p>2</p></td>
+<td><p>0,3</p></td>
+<td><p>0,3</p></td>
+<td><p>0,2</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>4</p></td>
+<td><p>400000</p></td>
+<td><p>3</p></td>
+<td><p>0,4</p></td>
+<td><p>0,4</p></td>
+<td><p>0,3</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>2</p></td>
+<td><p>300000</p></td>
+<td><p><strong>3</strong></p></td>
+<td><p>0,2</p></td>
+<td><p>0,3</p></td>
+<td><p><strong>0,3</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id5">
+<h4>💻 Jawaban Coding<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;NO&#39;</span><span class="p">:</span>   <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="s1">&#39;IPK&#39;</span><span class="p">:</span>  <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="s1">&#39;PO&#39;</span><span class="p">:</span>   <span class="p">[</span><span class="mi">200000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">,</span> <span class="mi">400000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">],</span>
+    <span class="s1">&#39;JMLH&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">decimal_scaling</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="n">max_abs</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">max_abs</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">series</span> <span class="o">/</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="n">j</span><span class="p">),</span> <span class="n">j</span>
+
+<span class="n">df_ds</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_ds</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_ds</span><span class="p">[</span><span class="s1">&#39;NO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;JMLH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># isi dengan hasil prediksi WKNN</span>
+<span class="n">df_ds</span><span class="p">[</span><span class="s1">&#39;IPK_ds&#39;</span><span class="p">],</span>  <span class="n">j_ipk</span>  <span class="o">=</span> <span class="n">decimal_scaling</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;IPK&#39;</span><span class="p">])</span>
+<span class="n">df_ds</span><span class="p">[</span><span class="s1">&#39;PO_ds&#39;</span><span class="p">],</span>   <span class="n">j_po</span>   <span class="o">=</span> <span class="n">decimal_scaling</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;PO&#39;</span><span class="p">])</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">j_jmlh</span> <span class="o">=</span> <span class="n">decimal_scaling</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>  <span class="c1"># ambil j dari data latih</span>
+<span class="n">df_ds</span><span class="p">[</span><span class="s1">&#39;JMLH_ds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_ds</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="n">j_jmlh</span><span class="p">)</span>  <span class="c1"># terapkan ke semua, termasuk NO=7</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;j IPK=</span><span class="si">{</span><span class="n">j_ipk</span><span class="si">}</span><span class="s1">, j PO=</span><span class="si">{</span><span class="n">j_po</span><span class="si">}</span><span class="s1">, j JMLH=</span><span class="si">{</span><span class="n">j_jmlh</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_ds</span><span class="p">[[</span><span class="s1">&#39;NO&#39;</span><span class="p">,</span><span class="s1">&#39;IPK&#39;</span><span class="p">,</span><span class="s1">&#39;IPK_ds&#39;</span><span class="p">,</span><span class="s1">&#39;PO&#39;</span><span class="p">,</span><span class="s1">&#39;PO_ds&#39;</span><span class="p">,</span><span class="s1">&#39;JMLH&#39;</span><span class="p">,</span><span class="s1">&#39;JMLH_ds&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">floatfmt</span><span class="o">=</span><span class="s1">&#39;.4f&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">j</span> <span class="n">IPK</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="n">PO</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">j</span> <span class="n">JMLH</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>IPK</p></th>
+<th class="head"><p>IPK_ds</p></th>
+<th class="head"><p>PO</p></th>
+<th class="head"><p>PO_ds</p></th>
+<th class="head"><p>JMLH</p></th>
+<th class="head"><p>JMLH_ds</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>0.2000</p></td>
+<td><p>200000</p></td>
+<td><p>0.2000</p></td>
+<td><p>2.0</p></td>
+<td><p>0.2000</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>0.3000</p></td>
+<td><p>300000</p></td>
+<td><p>0.3000</p></td>
+<td><p>3.0</p></td>
+<td><p>0.3000</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>0.4000</p></td>
+<td><p>200000</p></td>
+<td><p>0.2000</p></td>
+<td><p>2.0</p></td>
+<td><p>0.2000</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>2</p></td>
+<td><p>0.2000</p></td>
+<td><p>200000</p></td>
+<td><p>0.2000</p></td>
+<td><p>3.0</p></td>
+<td><p>0.3000</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>0.3000</p></td>
+<td><p>300000</p></td>
+<td><p>0.3000</p></td>
+<td><p>2.0</p></td>
+<td><p>0.2000</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>4</p></td>
+<td><p>0.4000</p></td>
+<td><p>400000</p></td>
+<td><p>0.4000</p></td>
+<td><p>3.0</p></td>
+<td><p>0.3000</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>2</p></td>
+<td><p>0.2000</p></td>
+<td><p>300000</p></td>
+<td><p>0.3000</p></td>
+<td><p>3.0</p></td>
+<td><p>0.3000</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p>Hasil coding sama dengan jawaban manual.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="perbandingan-ketiga-metode-pada-dataset-soal">
+<h3>Perbandingan Ketiga Metode pada Dataset Soal<a class="headerlink" href="#perbandingan-ketiga-metode-pada-dataset-soal" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Catatan:</strong> JMLH NO=7 menggunakan hasil prediksi WKNN = <strong>3</strong>, dinormalisasi dengan parameter yang sama dari data latih NO=1–6 (min, max, mean, σ, j).</p>
+</div></blockquote>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>IPK_mm</p></th>
+<th class="head"><p>PO_mm</p></th>
+<th class="head"><p>JMLH_mm</p></th>
+<th class="head"><p>IPK_z</p></th>
+<th class="head"><p>PO_z</p></th>
+<th class="head"><p>JMLH_z</p></th>
+<th class="head"><p>IPK_ds</p></th>
+<th class="head"><p>PO_ds</p></th>
+<th class="head"><p>JMLH_ds</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>−1.033</p></td>
+<td><p>−1.054</p></td>
+<td><p>−1.0</p></td>
+<td><p>0.2</p></td>
+<td><p>0.2</p></td>
+<td><p>0.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+<td><p>1.0</p></td>
+<td><p>0.172</p></td>
+<td><p>0.422</p></td>
+<td><p>1.0</p></td>
+<td><p>0.3</p></td>
+<td><p>0.3</p></td>
+<td><p>0.3</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>1.0</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>1.377</p></td>
+<td><p>−1.054</p></td>
+<td><p>−1.0</p></td>
+<td><p>0.4</p></td>
+<td><p>0.2</p></td>
+<td><p>0.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>1.0</p></td>
+<td><p>−1.033</p></td>
+<td><p>−1.054</p></td>
+<td><p>1.0</p></td>
+<td><p>0.2</p></td>
+<td><p>0.2</p></td>
+<td><p>0.3</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+<td><p>0.0</p></td>
+<td><p>0.172</p></td>
+<td><p>0.422</p></td>
+<td><p>−1.0</p></td>
+<td><p>0.3</p></td>
+<td><p>0.3</p></td>
+<td><p>0.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>1.0</p></td>
+<td><p>1.0</p></td>
+<td><p>1.0</p></td>
+<td><p>1.377</p></td>
+<td><p>1.898</p></td>
+<td><p>1.0</p></td>
+<td><p>0.4</p></td>
+<td><p>0.4</p></td>
+<td><p>0.3</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>0.0</p></td>
+<td><p>0.5</p></td>
+<td><p><strong>1.0</strong></p></td>
+<td><p>−1.033</p></td>
+<td><p>0.422</p></td>
+<td><p><strong>1.0</strong></p></td>
+<td><p>0.2</p></td>
+<td><p>0.3</p></td>
+<td><p><strong>0.3</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="daftar-isi">
+<h2>Daftar Isi<a class="headerlink" href="#daftar-isi" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Klik untuk membuka Daftar Isi</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic simple" start="0">
+<li><p class="sd-card-text"><a class="reference internal" href="#struktur-tugas-sesuai-notebook"><span class="xref myst">Struktur Tugas (Sesuai Notebook)</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#normalisasi-data-dengan-soal-yang-sama"><span class="xref myst">Normalisasi Data dengan Soal yang Sama</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#1-missing-values--imputasi-wknn"><span class="xref myst">Missing Values &amp; Imputasi WKNN</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#2-normalisasi-data"><span class="xref myst">Normalisasi Data</span></a></p>
+<ul class="simple">
+<li><p class="sd-card-text"><a class="reference internal" href="#a-min-max-normalization"><span class="xref myst">Min-Max Normalization</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#b-z-score-normalization-standardization"><span class="xref myst">Z-Score Normalization</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#c-decimal-scaling-normalization"><span class="xref myst">Decimal Scaling Normalization</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#perbandingan-ketiga-metode"><span class="xref myst">Perbandingan Ketiga Metode</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#implementasi-dengan-python--sklearn"><span class="xref myst">Implementasi Python &amp; Sklearn</span></a></p></li>
+</ul>
+</li>
+</ol>
+</div>
+</details></section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="missing-values-imputasi-wknn">
+<h1>1. Missing Values &amp; Imputasi WKNN<a class="headerlink" href="#missing-values-imputasi-wknn" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>Referensi utama:</strong> <a class="reference external" href="https://moelaab.github.io/pendata/preproces/wknn.html">moelaab — Imputasi WKNN</a></p>
+</div></blockquote>
+<section id="apa-itu-missing-values">
+<h2>1.1 Apa Itu Missing Values?<a class="headerlink" href="#apa-itu-missing-values" title="Link to this heading">#</a></h2>
+<p><strong>Missing value</strong> (nilai hilang) adalah kondisi di mana satu atau lebih atribut pada suatu observasi tidak memiliki nilai. Penyebabnya antara lain:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Penyebab</p></th>
+<th class="head"><p>Contoh</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Kesalahan input</p></td>
+<td><p>Operator lupa mengisi kolom</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sensor rusak</p></td>
+<td><p>Alat pengukur tidak merekam data</p></td>
+</tr>
+<tr class="row-even"><td><p>Responden menolak menjawab</p></td>
+<td><p>Kolom pendapatan dikosongkan</p></td>
+</tr>
+<tr class="row-odd"><td><p>Data tidak relevan</p></td>
+<td><p>Kolom “gaji” untuk pelajar</p></td>
+</tr>
+<tr class="row-even"><td><p>Masalah integrasi data</p></td>
+<td><p>Penggabungan tabel dengan kolom berbeda</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Dalam Python/Pandas, missing value biasanya direpresentasikan sebagai <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (<em>Not a Number</em>).</p>
+</section>
+<section id="strategi-menangani-missing-values">
+<h2>1.2 Strategi Menangani Missing Values<a class="headerlink" href="#strategi-menangani-missing-values" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Strategi</p></th>
+<th class="head"><p>Keterangan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Penghapusan (Deletion)</strong></p></td>
+<td><p>Hapus baris atau kolom yang mengandung missing value. Sederhana tetapi bisa kehilangan banyak data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Imputasi Mean/Median/Modus</strong></p></td>
+<td><p>Isi dengan rata-rata (numerik), median, atau modus (kategorikal). Tidak memperhitungkan hubungan antar atribut.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Imputasi KNN</strong></p></td>
+<td><p>Isi berdasarkan rata-rata dari <em>K</em> tetangga terdekat.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Imputasi WKNN (Weighted KNN)</strong></p></td>
+<td><p>Pengembangan KNN — tetangga yang lebih dekat diberi bobot lebih besar.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="imputasi-knn-standar-vs-wknn">
+<h2>1.3 Imputasi KNN Standar vs WKNN<a class="headerlink" href="#imputasi-knn-standar-vs-wknn" title="Link to this heading">#</a></h2>
+<section id="knn-imputasi-standar">
+<h3>KNN Imputasi (Standar)<a class="headerlink" href="#knn-imputasi-standar" title="Link to this heading">#</a></h3>
+<p>KNN standar mengambil <strong>rata-rata sederhana</strong> (atau modus untuk data kategorikal) dari <span class="math notranslate nohighlight">\(K\)</span> tetangga terdekat untuk mengisi data yang hilang. Semua tetangga diperlakukan <strong>sama rata</strong> tanpa memandang jaraknya.</p>
+</section>
+<section id="wknn-imputasi-weighted-knn">
+<h3>WKNN Imputasi (Weighted KNN)<a class="headerlink" href="#wknn-imputasi-weighted-knn" title="Link to this heading">#</a></h3>
+<p>WKNN merupakan <strong>pengembangan</strong> dari KNN standar. Perbedaan utamanya:</p>
+<blockquote>
+<div><p>Tetangga yang nilainya <strong>sangat mirip</strong> (jaraknya dekat) dengan data yang hilang akan memiliki <strong>pengaruh (bobot) lebih besar</strong> dibandingkan tetangga yang jaraknya jauh.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="rumus-wknn">
+<h2>1.4 Rumus WKNN<a class="headerlink" href="#rumus-wknn" title="Link to this heading">#</a></h2>
+<section id="rumus-1-ukuran-kemiripan-similarity">
+<h3>Rumus (1) — Ukuran Kemiripan (<em>Similarity</em>)<a class="headerlink" href="#rumus-1-ukuran-kemiripan-similarity" title="Link to this heading">#</a></h3>
+<p>Ukuran kesamaan <span class="math notranslate nohighlight">\(s_i(y_j)\)</span> antara dua contoh <span class="math notranslate nohighlight">\(y_i\)</span> dan <span class="math notranslate nohighlight">\(y_j\)</span> didefinisikan oleh <strong>jarak Euclidean</strong> berdasarkan atribut-atribut yang teramati:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{s_i} = \sum_{h_i \in O_i \cap O_j} (y_i^h - y_j^h)^2 \tag{1}
+\]</div>
+<p>di mana <span class="math notranslate nohighlight">\(O_i = \{h \mid \text{komponen ke-}h\text{ dari }y_i\text{ teramati}\}\)</span>.</p>
+<p><strong>Penjelasan:</strong></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\frac{1}{s_i}\)</span>: kebalikan dari kesamaan = jarak. Jika jarak kecil → <span class="math notranslate nohighlight">\(s_i\)</span> besar (sangat mirip).</p></li>
+<li><p><span class="math notranslate nohighlight">\(O_i \cap O_j\)</span>: penjumlahan <strong>hanya</strong> dilakukan pada atribut yang <strong>ada datanya</strong> pada kedua objek.</p></li>
+<li><p>Semakin kecil hasil penjumlahan → semakin mirip → bobot <span class="math notranslate nohighlight">\(s_i\)</span> semakin besar.</p></li>
+</ul>
+</section>
+<section id="rumus-2-estimasi-nilai-hilang-weighted-average">
+<h3>Rumus (2) — Estimasi Nilai Hilang (Weighted Average)<a class="headerlink" href="#rumus-2-estimasi-nilai-hilang-weighted-average" title="Link to this heading">#</a></h3>
+<p>Entri yang hilang <span class="math notranslate nohighlight">\(y_i^h\)</span> diestimasi sebagai <strong>rata-rata tertimbang</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y}_i^h = \frac{\sum_{j \in I_{K_i^h}} s_i(y_j) \cdot y_j^h}{\sum_{j \in I_{K_i^h}} s_i(y_j)} \tag{2}
+\]</div>
+<p>di mana <span class="math notranslate nohighlight">\(I_{K_i^h}\)</span> adalah himpunan indeks dari <span class="math notranslate nohighlight">\(K\)</span> tetangga terdekat dari contoh ke-<span class="math notranslate nohighlight">\(i\)</span>.</p>
+<p><strong>Interpretasi:</strong></p>
+<ul class="simple">
+<li><p><strong>Pembilang:</strong> jumlah (bobot kesamaan × nilai tetangga)</p></li>
+<li><p><strong>Penyebut:</strong> jumlah total bobot kesamaan (normalisasi)</p></li>
+<li><p>Tetangga dengan bobot <span class="math notranslate nohighlight">\(s_i\)</span> besar → pengaruhnya besar terhadap hasil</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="contoh-perhitungan-manual-wknn-data-numerik">
+<h2>1.5 Contoh Perhitungan Manual WKNN (Data Numerik)<a class="headerlink" href="#contoh-perhitungan-manual-wknn-data-numerik" title="Link to this heading">#</a></h2>
+<section id="dataset-harga-sewa-kos">
+<h3>Dataset: Harga Sewa Kos<a class="headerlink" href="#dataset-harga-sewa-kos" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>No</p></th>
+<th class="head text-center"><p>Luas (<span class="math notranslate nohighlight">\(x\)</span>)</p></th>
+<th class="head text-center"><p>Harga Sewa (<span class="math notranslate nohighlight">\(y\)</span>, juta)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>1</p></td>
+<td class="text-center"><p>20</p></td>
+<td class="text-center"><p>2.0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>2</p></td>
+<td class="text-center"><p>25</p></td>
+<td class="text-center"><p>2.4</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>3</p></td>
+<td class="text-center"><p>35</p></td>
+<td class="text-center"><p>3.5</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>4</p></td>
+<td class="text-center"><p>40</p></td>
+<td class="text-center"><p>4.2</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>5</p></td>
+<td class="text-center"><p>50</p></td>
+<td class="text-center"><p>5.1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>6</p></td>
+<td class="text-center"><p>60</p></td>
+<td class="text-center"><p>6.5</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><strong>7</strong></p></td>
+<td class="text-center"><p><strong>30</strong></p></td>
+<td class="text-center"><p><strong>? (hilang)</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Target:</strong> Estimasi Harga Sewa untuk Luas = 30.</p>
+</section>
+<section id="penentuan-k">
+<h3>Penentuan K<a class="headerlink" href="#penentuan-k" title="Link to this heading">#</a></h3>
+<p>Tidak ada rumus baku untuk memilih <span class="math notranslate nohighlight">\(K\)</span>. Nilai <span class="math notranslate nohighlight">\(K\)</span> ditentukan secara <strong>empiris</strong> (coba-coba, misal <span class="math notranslate nohighlight">\(K = 3, 5, 7\)</span>, lalu lihat error terkecil via cross-validation). Pada contoh ini kita gunakan <strong>semua 6 tetangga</strong> (K = 6).</p>
+</section>
+<section id="langkah-1-hitung-jarak-dan-kemiripan-s-i">
+<h3>Langkah 1 — Hitung Jarak dan Kemiripan (<span class="math notranslate nohighlight">\(s_i\)</span>)<a class="headerlink" href="#langkah-1-hitung-jarak-dan-kemiripan-s-i" title="Link to this heading">#</a></h3>
+<p>Gunakan rumus (1) dengan satu fitur (Luas):</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{s_i} = (x_i - x_j)^2
+\]</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Tetangga</p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(x_j\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\((30 - x_j)^2\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(s_i = \frac{1}{(30-x_j)^2}\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_1\)</span></p></td>
+<td class="text-center"><p>20</p></td>
+<td class="text-center"><p>100</p></td>
+<td class="text-center"><p>0.0100</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_2\)</span></p></td>
+<td class="text-center"><p>25</p></td>
+<td class="text-center"><p>25</p></td>
+<td class="text-center"><p>0.0400</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_3\)</span></p></td>
+<td class="text-center"><p>35</p></td>
+<td class="text-center"><p>25</p></td>
+<td class="text-center"><p>0.0400</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_4\)</span></p></td>
+<td class="text-center"><p>40</p></td>
+<td class="text-center"><p>100</p></td>
+<td class="text-center"><p>0.0100</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_5\)</span></p></td>
+<td class="text-center"><p>50</p></td>
+<td class="text-center"><p>400</p></td>
+<td class="text-center"><p>0.0025</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_6\)</span></p></td>
+<td class="text-center"><p>60</p></td>
+<td class="text-center"><p>900</p></td>
+<td class="text-center"><p>0.0011</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="langkah-2-hitung-estimasi-weighted-average">
+<h3>Langkah 2 — Hitung Estimasi (Weighted Average)<a class="headerlink" href="#langkah-2-hitung-estimasi-weighted-average" title="Link to this heading">#</a></h3>
+<p><strong>A. Pembilang</strong> <span class="math notranslate nohighlight">\(\sum s_i \cdot y_j\)</span>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(s_i\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(y_j\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(s_i \times y_j\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_1\)</span></p></td>
+<td class="text-center"><p>0.0100</p></td>
+<td class="text-center"><p>2.0</p></td>
+<td class="text-center"><p>0.0200</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_2\)</span></p></td>
+<td class="text-center"><p>0.0400</p></td>
+<td class="text-center"><p>2.4</p></td>
+<td class="text-center"><p>0.0960</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_3\)</span></p></td>
+<td class="text-center"><p>0.0400</p></td>
+<td class="text-center"><p>3.5</p></td>
+<td class="text-center"><p>0.1400</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_4\)</span></p></td>
+<td class="text-center"><p>0.0100</p></td>
+<td class="text-center"><p>4.2</p></td>
+<td class="text-center"><p>0.0420</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_5\)</span></p></td>
+<td class="text-center"><p>0.0025</p></td>
+<td class="text-center"><p>5.1</p></td>
+<td class="text-center"><p>0.01275</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_6\)</span></p></td>
+<td class="text-center"><p>0.0011</p></td>
+<td class="text-center"><p>6.5</p></td>
+<td class="text-center"><p>0.00715</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><strong>Total</strong></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p><strong>0.3179</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>B. Penyebut</strong> <span class="math notranslate nohighlight">\(\sum s_i\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+0.0100 + 0.0400 + 0.0400 + 0.0100 + 0.0025 + 0.0011 = 0.1036
+\]</div>
+<p><strong>C. Hasil Akhir:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y} = \frac{0.3179}{0.1036} \approx \mathbf{3.068 \text{ juta}}
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="contoh-wknn-pada-data-klasifikasi-same-class-weighting">
+<h2>1.6 Contoh WKNN pada Data Klasifikasi (Same-Class Weighting)<a class="headerlink" href="#contoh-wknn-pada-data-klasifikasi-same-class-weighting" title="Link to this heading">#</a></h2>
+<p>Jika label kelas sudah diketahui, label menjadi informasi tambahan untuk estimasi yang <strong>lebih akurat</strong> — titik dengan kelas sama biasanya memiliki karakteristik fitur yang serupa.</p>
+<section id="dataset-data-pelamar-kerja">
+<h3>Dataset: Data Pelamar Kerja<a class="headerlink" href="#dataset-data-pelamar-kerja" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>No</p></th>
+<th class="head text-center"><p>Pengalaman (th)</p></th>
+<th class="head text-center"><p>Skor Tes</p></th>
+<th class="head text-center"><p>Status</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>1</p></td>
+<td class="text-center"><p>2</p></td>
+<td class="text-center"><p>70</p></td>
+<td class="text-center"><p>0 (Gagal)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>2</p></td>
+<td class="text-center"><p>3</p></td>
+<td class="text-center"><p>75</p></td>
+<td class="text-center"><p>0 (Gagal)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>3</p></td>
+<td class="text-center"><p>5</p></td>
+<td class="text-center"><p>85</p></td>
+<td class="text-center"><p>1 (Lulus)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>4</p></td>
+<td class="text-center"><p>6</p></td>
+<td class="text-center"><p>88</p></td>
+<td class="text-center"><p>1 (Lulus)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>5</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>65</p></td>
+<td class="text-center"><p>0 (Gagal)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>6</p></td>
+<td class="text-center"><p>7</p></td>
+<td class="text-center"><p>92</p></td>
+<td class="text-center"><p>1 (Lulus)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><strong>7</strong></p></td>
+<td class="text-center"><p><strong>5.5</strong></p></td>
+<td class="text-center"><p><strong>? (hilang)</strong></p></td>
+<td class="text-center"><p><strong>1 (Lulus)</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Target:</strong> Estimasi Skor Tes untuk data ke-7 (Pengalaman = 5.5, Kelas = Lulus).</p>
+</section>
+<section id="langkah-1-hitung-jarak-kemiripan">
+<h3>Langkah 1 — Hitung Jarak &amp; Kemiripan<a class="headerlink" href="#langkah-1-hitung-jarak-kemiripan" title="Link to this heading">#</a></h3>
+<p>Gunakan fitur yang lengkap (Pengalaman saja):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Tetangga</p></th>
+<th class="head text-center"><p>Pengalaman</p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\((5.5 - x_j)^2\)</span></p></th>
+<th class="head text-center"><p><span class="math notranslate nohighlight">\(s_i\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_1\)</span></p></td>
+<td class="text-center"><p>2</p></td>
+<td class="text-center"><p>12.25</p></td>
+<td class="text-center"><p>0.081</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_2\)</span></p></td>
+<td class="text-center"><p>3</p></td>
+<td class="text-center"><p>6.25</p></td>
+<td class="text-center"><p>0.160</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_3\)</span></p></td>
+<td class="text-center"><p>5</p></td>
+<td class="text-center"><p>0.25</p></td>
+<td class="text-center"><p>4.000</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_4\)</span></p></td>
+<td class="text-center"><p>6</p></td>
+<td class="text-center"><p>0.25</p></td>
+<td class="text-center"><p>4.000</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_5\)</span></p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>20.25</p></td>
+<td class="text-center"><p>0.049</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><span class="math notranslate nohighlight">\(y_6\)</span></p></td>
+<td class="text-center"><p>7</p></td>
+<td class="text-center"><p>2.25</p></td>
+<td class="text-center"><p>0.444</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="langkah-2-filter-same-class-kelas-1">
+<h3>Langkah 2 — Filter Same-Class (Kelas 1)<a class="headerlink" href="#langkah-2-filter-same-class-kelas-1" title="Link to this heading">#</a></h3>
+<p>Karena data target memiliki Kelas 1, kita <strong>hanya pakai tetangga Kelas 1</strong>: <span class="math notranslate nohighlight">\(y_3, y_4, y_6\)</span>.</p>
+</section>
+<section id="langkah-3-hitung-estimasi-hanya-kelas-1">
+<h3>Langkah 3 — Hitung Estimasi (Hanya Kelas 1)<a class="headerlink" href="#langkah-3-hitung-estimasi-hanya-kelas-1" title="Link to this heading">#</a></h3>
+<p><strong>Pembilang</strong> <span class="math notranslate nohighlight">\(\sum s_i \cdot \text{Skor}_j\)</span>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(y_3\)</span>: <span class="math notranslate nohighlight">\(4.000 \times 85 = 340\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(y_4\)</span>: <span class="math notranslate nohighlight">\(4.000 \times 88 = 352\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(y_6\)</span>: <span class="math notranslate nohighlight">\(0.444 \times 92 = 40.848\)</span></p></li>
+<li><p><strong>Total = 732.848</strong></p></li>
+</ul>
+<p><strong>Penyebut</strong> <span class="math notranslate nohighlight">\(\sum s_i\)</span>: <span class="math notranslate nohighlight">\(4.000 + 4.000 + 0.444 = 8.444\)</span></p>
+<p><strong>Hasil:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y} = \frac{732.848}{8.444} \approx \mathbf{86.79}
+\]</div>
+<blockquote>
+<div><p>Skor tes yang hilang diestimasi sebesar <strong>86.79</strong>. Masuk akal karena pengalaman 5.5 berada di antara <span class="math notranslate nohighlight">\(y_3\)</span> (5 tahun, skor 85) dan <span class="math notranslate nohighlight">\(y_4\)</span> (6 tahun, skor 88).</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="normalisasi-data">
+<h1>2. Normalisasi Data<a class="headerlink" href="#normalisasi-data" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>Referensi utama:</strong> García, S., Luengo, J., &amp; Herrera, F. (2015). <em>Data Preprocessing in Data Mining</em>. Springer.</p>
+</div></blockquote>
+<section id="mengapa-perlu-normalisasi">
+<h2>2.1 Mengapa Perlu Normalisasi?<a class="headerlink" href="#mengapa-perlu-normalisasi" title="Link to this heading">#</a></h2>
+<p>Normalisasi (atau <em>scaling</em>) adalah proses <strong>mengubah skala nilai atribut</strong> agar berada dalam rentang tertentu. Tujuannya:</p>
+<ol class="arabic simple">
+<li><p><strong>Menghilangkan dominasi atribut berskala besar</strong> — fitur dengan rentang besar (misal gaji: 1.000.000–50.000.000) akan mendominasi fitur berskala kecil (misal umur: 20–60) saat menghitung jarak.</p></li>
+<li><p><strong>Mempercepat konvergensi</strong> algoritma berbasis gradien (misalnya neural network, gradient descent).</p></li>
+<li><p><strong>Meningkatkan akurasi</strong> algoritma berbasis jarak seperti KNN, K-Means, SVM.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="macam-macam-normalisasi-data">
+<h2>2.2 Macam-Macam Normalisasi Data<a class="headerlink" href="#macam-macam-normalisasi-data" title="Link to this heading">#</a></h2>
+<section id="id6">
+<h3>A. Min-Max Normalization<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Rumus dari buku referensi</strong> (García et al., 2015 — <em>Data Preprocessing in Data Mining</em>, hal. 47, Bagian 3.4):</p>
+<p><img alt="Rumus Min-Max Normalization — Persamaan (3.9) dari buku Data Preprocessing in Data Mining" src="Tugas/Missing%20Values%20%26%20Normalisasi/gambar_buku/rumus_minmax_3.9.png" /></p>
+<p><em>Gambar: Formulasi Min-Max Normalization (Persamaan 3.9). Normalisasi min-max mentransformasi nilai atribut ke rentang [0, 1] atau rentang baru [new–min_A, new–max_A]. Rumus ini memetakan nilai <span class="math notranslate nohighlight">\(v\)</span> secara linear berdasarkan nilai minimum dan maksimum asli dari atribut <span class="math notranslate nohighlight">\(A\)</span>. Formulasi alternatif menggunakan base value <span class="math notranslate nohighlight">\(\text{new–min}_A\)</span> dan rentang baru <span class="math notranslate nohighlight">\(R\)</span> untuk transformasi ke interval yang diinginkan.</em></p>
+</div></blockquote>
+<p>Mentransformasi data ke dalam rentang <span class="math notranslate nohighlight">\([0, 1]\)</span> (atau rentang <span class="math notranslate nohighlight">\([\text{new\_min}, \text{new\_max}]\)</span> yang diinginkan).</p>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+v' = \frac{v - \min(A)}{\max(A) - \min(A)}
+\]</div>
+<p>Jika ingin memetakan ke rentang <span class="math notranslate nohighlight">\([\text{new\_min}, \text{new\_max}]\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+v' = \frac{v - \min(A)}{\max(A) - \min(A)} \times (\text{new\_max} - \text{new\_min}) + \text{new\_min}
+\]</div>
+<p>di mana:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(v\)</span> = nilai asli</p></li>
+<li><p><span class="math notranslate nohighlight">\(\min(A)\)</span> = nilai minimum atribut <span class="math notranslate nohighlight">\(A\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\max(A)\)</span> = nilai maksimum atribut <span class="math notranslate nohighlight">\(A\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(v'\)</span> = nilai setelah normalisasi</p></li>
+</ul>
+<p><strong>Karakteristik:</strong></p>
+<ul class="simple">
+<li><p>Hasil selalu berada di rentang <span class="math notranslate nohighlight">\([0, 1]\)</span></p></li>
+<li><p>Sensitif terhadap <strong>outlier</strong> (nilai ekstrem mengubah min/max)</p></li>
+<li><p>Cocok untuk data yang <strong>tidak mengikuti distribusi normal</strong></p></li>
+</ul>
+<section id="contoh-perhitungan-min-max">
+<h4>Contoh Perhitungan Min-Max<a class="headerlink" href="#contoh-perhitungan-min-max" title="Link to this heading">#</a></h4>
+<p>Data atribut Umur: <strong>[20, 25, 30, 35, 40]</strong></p>
+<p><span class="math notranslate nohighlight">\(\min = 20\)</span>, <span class="math notranslate nohighlight">\(\max = 40\)</span></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Nilai Asli (<span class="math notranslate nohighlight">\(v\)</span>)</p></th>
+<th class="head text-center"><p>Perhitungan</p></th>
+<th class="head text-center"><p>Hasil (<span class="math notranslate nohighlight">\(v'\)</span>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>20</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\((20-20)/(40-20)\)</span></p></td>
+<td class="text-center"><p><strong>0.00</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>25</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\((25-20)/(40-20)\)</span></p></td>
+<td class="text-center"><p><strong>0.25</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>30</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\((30-20)/(40-20)\)</span></p></td>
+<td class="text-center"><p><strong>0.50</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>35</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\((35-20)/(40-20)\)</span></p></td>
+<td class="text-center"><p><strong>0.75</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>40</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\((40-20)/(40-20)\)</span></p></td>
+<td class="text-center"><p><strong>1.00</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id7">
+<h3>B. Z-Score Normalization (Standardization)<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Rumus dari buku referensi</strong> (García et al., 2015 — <em>Data Preprocessing in Data Mining</em>, hal. 47–48, Bagian 3.4.2):</p>
+<p><img alt="Rumus Z-Score Normalization — Persamaan (3.10) dari buku Data Preprocessing in Data Mining" src="Tugas/Missing%20Values%20%26%20Normalisasi/gambar_buku/rumus_zscore_3.10.png" /></p>
+<p><em>Gambar: Formulasi Z-Score Normalization (Persamaan 3.10). Pada beberapa kasus, min-max normalization tidak bisa diterapkan — misalnya ketika nilai minimum/maksimum atribut <span class="math notranslate nohighlight">\(A\)</span> tidak diketahui, atau ketika ada outlier yang membias hasil. Z-Score menormalisasi nilai <span class="math notranslate nohighlight">\(v\)</span> menggunakan mean (<span class="math notranslate nohighlight">\(\bar{A}\)</span>) dan standar deviasi (<span class="math notranslate nohighlight">\(\sigma_A\)</span>), sehingga hasil transformasi memiliki mean = 0 dan standar deviasi = 1.</em></p>
+</div></blockquote>
+<p>Mentransformasi data sehingga memiliki <strong>mean = 0</strong> dan <strong>standar deviasi = 1</strong>. Disebut juga <em>standardization</em> atau <em>zero-mean normalization</em>.</p>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+v' = \frac{v - \bar{A}}{\sigma_A}
+\]</div>
+<p>di mana:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(v\)</span> = nilai asli</p></li>
+<li><p><span class="math notranslate nohighlight">\(\bar{A}\)</span> = rata-rata (<em>mean</em>) atribut <span class="math notranslate nohighlight">\(A\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma_A\)</span> = standar deviasi atribut <span class="math notranslate nohighlight">\(A\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(v'\)</span> = nilai setelah normalisasi (<em>z-score</em>)</p></li>
+</ul>
+<p><strong>Rumus Standar Deviasi (populasi):</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_A = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (v_i - \bar{A})^2}
+\]</div>
+<p><strong>Karakteristik:</strong></p>
+<ul class="simple">
+<li><p>Hasil <strong>tidak terbatas</strong> dalam rentang tertentu (bisa negatif maupun positif)</p></li>
+<li><p><strong>Kurang sensitif</strong> terhadap outlier dibanding Min-Max</p></li>
+<li><p>Cocok untuk data yang <strong>mendekati distribusi normal</strong></p></li>
+<li><p>Digunakan secara luas pada algoritma yang mengasumsikan distribusi Gaussian</p></li>
+</ul>
+<section id="contoh-perhitungan-z-score">
+<h4>Contoh Perhitungan Z-Score<a class="headerlink" href="#contoh-perhitungan-z-score" title="Link to this heading">#</a></h4>
+<p>Data atribut Umur: <strong>[20, 25, 30, 35, 40]</strong></p>
+<p><span class="math notranslate nohighlight">\(\bar{A} = \frac{20+25+30+35+40}{5} = 30\)</span></p>
+<p><span class="math notranslate nohighlight">\(\sigma_A = \sqrt{\frac{(20{-}30)^2 + (25{-}30)^2 + (30{-}30)^2 + (35{-}30)^2 + (40{-}30)^2}{5}} = \sqrt{\frac{100+25+0+25+100}{5}} = \sqrt{50} \approx 7.07\)</span></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Nilai Asli (<span class="math notranslate nohighlight">\(v\)</span>)</p></th>
+<th class="head text-center"><p>Perhitungan</p></th>
+<th class="head text-center"><p>Hasil (<span class="math notranslate nohighlight">\(v'\)</span>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>20</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\((20-30)/7.07\)</span></p></td>
+<td class="text-center"><p><strong>−1.414</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>25</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\((25-30)/7.07\)</span></p></td>
+<td class="text-center"><p><strong>−0.707</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>30</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\((30-30)/7.07\)</span></p></td>
+<td class="text-center"><p><strong>0.000</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>35</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\((35-30)/7.07\)</span></p></td>
+<td class="text-center"><p><strong>+0.707</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>40</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\((40-30)/7.07\)</span></p></td>
+<td class="text-center"><p><strong>+1.414</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p>Nilai negatif = di bawah rata-rata, positif = di atas rata-rata.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id8">
+<h3>C. Decimal Scaling Normalization<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Rumus dari buku referensi</strong> (García et al., 2015 — <em>Data Preprocessing in Data Mining</em>, hal. 48, Bagian 3.4.2–3.4.3):</p>
+<p><img alt="Rumus Standar Deviasi, Mean Absolute Deviation, dan Decimal Scaling — Persamaan (3.12)–(3.15) dari buku Data Preprocessing in Data Mining" src="Tugas/Missing%20Values%20%26%20Normalisasi/gambar_buku/rumus_stddev_decimal_scaling_3.12-3.15.png" /></p>
+<p><em>Gambar: Halaman 48 buku referensi memuat beberapa rumus penting:</em></p>
+<ul class="simple">
+<li><p><em>Persamaan (3.12):</em> <span class="math notranslate nohighlight">\(\sigma_A = +\sqrt{\frac{1}{n}\sum_{i=1}^{n}(v_i - \bar{A})^2}\)</span> — <em>rumus standar deviasi populasi untuk Z-Score.</em></p></li>
+<li><p><em>Persamaan (3.13):</em> <span class="math notranslate nohighlight">\(s_A = \frac{1}{n}\sum_{i=1}^{n}|v_i - \bar{A}|\)</span> — <em>mean absolute deviation, variasi Z-Score yang lebih robust terhadap outlier karena tidak mengkuadratkan selisih.</em></p></li>
+<li><p><em>Persamaan (3.14):</em> <span class="math notranslate nohighlight">\(v' = \frac{v - \bar{A}}{s_A}\)</span> — <em>Z-Score menggunakan mean absolute deviation.</em></p></li>
+<li><p><em>Persamaan (3.15):</em> <span class="math notranslate nohighlight">\(v' = \frac{v}{10^j}\)</span> — <em>Decimal Scaling Normalization, di mana <span class="math notranslate nohighlight">\(j\)</span> adalah bilangan bulat terkecil sehingga <span class="math notranslate nohighlight">\(\max|v'| &lt; 1\)</span>.</em></p></li>
+</ul>
+</div></blockquote>
+<p>Menormalisasi data dengan <strong>menggeser titik desimal</strong> berdasarkan nilai absolut terbesar pada atribut tersebut.</p>
+<p><strong>Rumus:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+v' = \frac{v}{10^j}
+\]</div>
+<p>di mana <span class="math notranslate nohighlight">\(j\)</span> adalah <strong>bilangan bulat terkecil</strong> sehingga <span class="math notranslate nohighlight">\(\max(|v'|) &lt; 1\)</span>.</p>
+<p>Dengan kata lain, <span class="math notranslate nohighlight">\(j = \lceil \log_{10}(\max |v|) \rceil\)</span> (pembulatan ke atas dari logaritma basis 10 dari nilai absolut terbesar).</p>
+<p><strong>Karakteristik:</strong></p>
+<ul class="simple">
+<li><p>Hasil berada di rentang <span class="math notranslate nohighlight">\((-1, 1)\)</span></p></li>
+<li><p>Sangat <strong>sederhana</strong> untuk dihitung</p></li>
+<li><p>Bergantung pada <strong>nilai absolut terbesar</strong> dalam data</p></li>
+</ul>
+<section id="contoh-perhitungan-decimal-scaling">
+<h4>Contoh Perhitungan Decimal Scaling<a class="headerlink" href="#contoh-perhitungan-decimal-scaling" title="Link to this heading">#</a></h4>
+<p>Data atribut Gaji: <strong>[1200, 3400, 5600, 7800, 9900]</strong></p>
+<p><span class="math notranslate nohighlight">\(\max(|v|) = 9900\)</span></p>
+<p><span class="math notranslate nohighlight">\(j = \lceil \log_{10}(9900) \rceil = \lceil 3.9956 \rceil = 4\)</span></p>
+<p>Maka kita bagi semua nilai dengan <span class="math notranslate nohighlight">\(10^4 = 10000\)</span>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Nilai Asli (<span class="math notranslate nohighlight">\(v\)</span>)</p></th>
+<th class="head text-center"><p>Perhitungan</p></th>
+<th class="head text-center"><p>Hasil (<span class="math notranslate nohighlight">\(v'\)</span>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>1200</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(1200/10000\)</span></p></td>
+<td class="text-center"><p><strong>0.12</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>3400</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(3400/10000\)</span></p></td>
+<td class="text-center"><p><strong>0.34</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>5600</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(5600/10000\)</span></p></td>
+<td class="text-center"><p><strong>0.56</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>7800</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(7800/10000\)</span></p></td>
+<td class="text-center"><p><strong>0.78</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>9900</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(9900/10000\)</span></p></td>
+<td class="text-center"><p><strong>0.99</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="perbandingan-ketiga-metode">
+<h2>Perbandingan Ketiga Metode<a class="headerlink" href="#perbandingan-ketiga-metode" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Aspek</p></th>
+<th class="head"><p>Min-Max</p></th>
+<th class="head"><p>Z-Score</p></th>
+<th class="head"><p>Decimal Scaling</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Rentang hasil</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\([0, 1]\)</span></p></td>
+<td><p>Tidak terbatas</p></td>
+<td><p><span class="math notranslate nohighlight">\((-1, 1)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Sensitif outlier?</strong></p></td>
+<td><p>Ya (sangat)</p></td>
+<td><p>Lebih tahan</p></td>
+<td><p>Tergantung nilai maks</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Distribusi data</strong></p></td>
+<td><p>Bebas</p></td>
+<td><p>Baik untuk distribusi normal</p></td>
+<td><p>Bebas</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Menjaga proporsi jarak?</strong></p></td>
+<td><p>Ya</p></td>
+<td><p>Ya</p></td>
+<td><p>Ya</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Kapan digunakan?</strong></p></td>
+<td><p>Neural network, image processing</p></td>
+<td><p>SVM, Logistic Regression, PCA</p></td>
+<td><p>Data berskala besar</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="contoh-komparasi-data-yang-sama">
+<h3>Contoh Komparasi (Data yang Sama)<a class="headerlink" href="#contoh-komparasi-data-yang-sama" title="Link to this heading">#</a></h3>
+<p>Data: <strong>[20, 25, 30, 35, 40]</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metode</p></th>
+<th class="head text-center"><p>20</p></th>
+<th class="head text-center"><p>25</p></th>
+<th class="head text-center"><p>30</p></th>
+<th class="head text-center"><p>35</p></th>
+<th class="head text-center"><p>40</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Asli</strong></p></td>
+<td class="text-center"><p>20</p></td>
+<td class="text-center"><p>25</p></td>
+<td class="text-center"><p>30</p></td>
+<td class="text-center"><p>35</p></td>
+<td class="text-center"><p>40</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Min-Max</strong></p></td>
+<td class="text-center"><p>0.00</p></td>
+<td class="text-center"><p>0.25</p></td>
+<td class="text-center"><p>0.50</p></td>
+<td class="text-center"><p>0.75</p></td>
+<td class="text-center"><p>1.00</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Z-Score</strong></p></td>
+<td class="text-center"><p>−1.414</p></td>
+<td class="text-center"><p>−0.707</p></td>
+<td class="text-center"><p>0.000</p></td>
+<td class="text-center"><p>+0.707</p></td>
+<td class="text-center"><p>+1.414</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Decimal Scaling</strong> (<span class="math notranslate nohighlight">\(j{=}2\)</span>)</p></td>
+<td class="text-center"><p>0.20</p></td>
+<td class="text-center"><p>0.25</p></td>
+<td class="text-center"><p>0.30</p></td>
+<td class="text-center"><p>0.35</p></td>
+<td class="text-center"><p>0.40</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="implementasi-dengan-python-sklearn">
+<h2>Implementasi dengan Python &amp; Sklearn<a class="headerlink" href="#implementasi-dengan-python-sklearn" title="Link to this heading">#</a></h2>
+<section id="id9">
+<h3>A. Min-Max Normalization<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinMaxScaler</span>
+
+<span class="c1"># Data contoh</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">],</span> <span class="p">[</span><span class="mi">35</span><span class="p">],</span> <span class="p">[</span><span class="mi">40</span><span class="p">]])</span>
+
+<span class="c1"># --- Menggunakan sklearn ---</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">hasil_sklearn</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Min-Max (sklearn):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hasil_sklearn</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+
+<span class="c1"># --- Fungsi sendiri ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">min_max_normalisasi</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="n">min_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="n">max_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">arr</span> <span class="o">-</span> <span class="n">min_val</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_val</span> <span class="o">-</span> <span class="n">min_val</span><span class="p">)</span>
+
+<span class="n">hasil_manual</span> <span class="o">=</span> <span class="n">min_max_normalisasi</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Min-Max (manual):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hasil_manual</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Min</span><span class="o">-</span><span class="n">Max</span> <span class="p">(</span><span class="n">sklearn</span><span class="p">):</span>
+<span class="p">[</span><span class="mf">0.</span>   <span class="mf">0.25</span> <span class="mf">0.5</span>  <span class="mf">0.75</span> <span class="mf">1.</span>  <span class="p">]</span>
+
+<span class="n">Min</span><span class="o">-</span><span class="n">Max</span> <span class="p">(</span><span class="n">manual</span><span class="p">):</span>
+<span class="p">[</span><span class="mf">0.</span>   <span class="mf">0.25</span> <span class="mf">0.5</span>  <span class="mf">0.75</span> <span class="mf">1.</span>  <span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id10">
+<h3>B. Z-Score Normalization (Standardization)<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">],</span> <span class="p">[</span><span class="mi">35</span><span class="p">],</span> <span class="p">[</span><span class="mi">40</span><span class="p">]])</span>
+
+<span class="c1"># --- Menggunakan sklearn ---</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">hasil_sklearn</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Z-Score (sklearn):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hasil_sklearn</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+
+<span class="c1"># --- Fungsi sendiri ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">z_score_normalisasi</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>  <span class="c1"># standar deviasi populasi</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">arr</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">std</span>
+
+<span class="n">hasil_manual</span> <span class="o">=</span> <span class="n">z_score_normalisasi</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Z-Score (manual):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hasil_manual</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Z</span><span class="o">-</span><span class="n">Score</span> <span class="p">(</span><span class="n">sklearn</span><span class="p">):</span>
+<span class="p">[</span><span class="o">-</span><span class="mf">1.41421356</span> <span class="o">-</span><span class="mf">0.70710678</span>  <span class="mf">0.</span>          <span class="mf">0.70710678</span>  <span class="mf">1.41421356</span><span class="p">]</span>
+
+<span class="n">Z</span><span class="o">-</span><span class="n">Score</span> <span class="p">(</span><span class="n">manual</span><span class="p">):</span>
+<span class="p">[</span><span class="o">-</span><span class="mf">1.41421356</span> <span class="o">-</span><span class="mf">0.70710678</span>  <span class="mf">0.</span>          <span class="mf">0.70710678</span>  <span class="mf">1.41421356</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id11">
+<h3>C. Decimal Scaling Normalization<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p><strong>Catatan:</strong> Sklearn <strong>tidak menyediakan</strong> fungsi bawaan untuk Decimal Scaling, sehingga kita buat fungsi sendiri.</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">decimal_scaling_normalisasi</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="n">max_abs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">arr</span><span class="p">))</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">max_abs</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">arr</span> <span class="o">/</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="n">j</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">3400</span><span class="p">,</span> <span class="mi">5600</span><span class="p">,</span> <span class="mi">7800</span><span class="p">,</span> <span class="mi">9900</span><span class="p">])</span>
+
+<span class="n">hasil</span> <span class="o">=</span> <span class="n">decimal_scaling_normalisasi</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;j = </span><span class="si">{</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data</span><span class="p">))))</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Decimal Scaling: </span><span class="si">{</span><span class="n">hasil</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">j</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">Decimal</span> <span class="n">Scaling</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.12</span> <span class="mf">0.34</span> <span class="mf">0.56</span> <span class="mf">0.78</span> <span class="mf">0.99</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="d-contoh-lengkap-normalisasi-dataset-multi-kolom">
+<h3>D. Contoh Lengkap — Normalisasi Dataset Multi-Kolom<a class="headerlink" href="#d-contoh-lengkap-normalisasi-dataset-multi-kolom" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinMaxScaler</span><span class="p">,</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># Dataset contoh</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Umur&#39;</span><span class="p">:</span>         <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>
+    <span class="s1">&#39;Gaji&#39;</span><span class="p">:</span>         <span class="p">[</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">3400</span><span class="p">,</span> <span class="mi">5600</span><span class="p">,</span> <span class="mi">7800</span><span class="p">,</span> <span class="mi">9900</span><span class="p">],</span>
+    <span class="s1">&#39;Pengalaman&#39;</span><span class="p">:</span>   <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Data Asli ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="c1"># Min-Max</span>
+<span class="n">mm_scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">df_minmax</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">mm_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;_mm&#39;</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Min-Max Normalization ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_minmax</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Z-Score</span>
+<span class="n">z_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">df_zscore</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">z_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;_z&#39;</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Z-Score Normalization ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_zscore</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Decimal Scaling (semua kolom)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">decimal_scaling_df</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+    <span class="n">hasil</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">hasil</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">max_abs</span> <span class="o">=</span> <span class="n">hasil</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">max_abs</span><span class="p">))</span> <span class="k">if</span> <span class="n">max_abs</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">hasil</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">hasil</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="n">j</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">hasil</span>
+
+<span class="n">df_decimal</span> <span class="o">=</span> <span class="n">decimal_scaling_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">df_decimal</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;_ds&#39;</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Decimal Scaling Normalization ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_decimal</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">===</span> <span class="n">Data</span> <span class="n">Asli</span> <span class="o">===</span>
+   <span class="n">Umur</span>  <span class="n">Gaji</span>  <span class="n">Pengalaman</span>
+<span class="mi">0</span>    <span class="mi">20</span>  <span class="mi">1200</span>           <span class="mi">1</span>
+<span class="mi">1</span>    <span class="mi">25</span>  <span class="mi">3400</span>           <span class="mi">3</span>
+<span class="mi">2</span>    <span class="mi">30</span>  <span class="mi">5600</span>           <span class="mi">5</span>
+<span class="mi">3</span>    <span class="mi">35</span>  <span class="mi">7800</span>           <span class="mi">7</span>
+<span class="mi">4</span>    <span class="mi">40</span>  <span class="mi">9900</span>          <span class="mi">10</span>
+
+<span class="o">===</span> <span class="n">Min</span><span class="o">-</span><span class="n">Max</span> <span class="n">Normalization</span> <span class="o">===</span>
+   <span class="n">Umur_mm</span>  <span class="n">Gaji_mm</span>  <span class="n">Pengalaman_mm</span>
+<span class="mi">0</span>   <span class="mf">0.0000</span>   <span class="mf">0.0000</span>         <span class="mf">0.0000</span>
+<span class="mi">1</span>   <span class="mf">0.2500</span>   <span class="mf">0.2529</span>         <span class="mf">0.2222</span>
+<span class="mi">2</span>   <span class="mf">0.5000</span>   <span class="mf">0.5057</span>         <span class="mf">0.4444</span>
+<span class="mi">3</span>   <span class="mf">0.7500</span>   <span class="mf">0.7586</span>         <span class="mf">0.6667</span>
+<span class="mi">4</span>   <span class="mf">1.0000</span>   <span class="mf">1.0000</span>         <span class="mf">1.0000</span>
+
+<span class="o">===</span> <span class="n">Z</span><span class="o">-</span><span class="n">Score</span> <span class="n">Normalization</span> <span class="o">===</span>
+   <span class="n">Umur_z</span>  <span class="n">Gaji_z</span>  <span class="n">Pengalaman_z</span>
+<span class="mi">0</span> <span class="o">-</span><span class="mf">1.4142</span> <span class="o">-</span><span class="mf">1.3887</span>       <span class="o">-</span><span class="mf">1.3363</span>
+<span class="mi">1</span> <span class="o">-</span><span class="mf">0.7071</span> <span class="o">-</span><span class="mf">0.6943</span>       <span class="o">-</span><span class="mf">0.6682</span>
+<span class="mi">2</span>  <span class="mf">0.0000</span>  <span class="mf">0.0000</span>        <span class="mf">0.0000</span>
+<span class="mi">3</span>  <span class="mf">0.7071</span>  <span class="mf">0.6943</span>        <span class="mf">0.6682</span>
+<span class="mi">4</span>  <span class="mf">1.4142</span>  <span class="mf">1.3887</span>        <span class="mf">1.3363</span>
+
+<span class="o">===</span> <span class="n">Decimal</span> <span class="n">Scaling</span> <span class="n">Normalization</span> <span class="o">===</span>
+   <span class="n">Umur_ds</span>  <span class="n">Gaji_ds</span>  <span class="n">Pengalaman_ds</span>
+<span class="mi">0</span>    <span class="mf">0.200</span>    <span class="mf">0.120</span>           <span class="mf">0.10</span>
+<span class="mi">1</span>    <span class="mf">0.250</span>    <span class="mf">0.340</span>           <span class="mf">0.30</span>
+<span class="mi">2</span>    <span class="mf">0.300</span>    <span class="mf">0.560</span>           <span class="mf">0.50</span>
+<span class="mi">3</span>    <span class="mf">0.350</span>    <span class="mf">0.780</span>           <span class="mf">0.70</span>
+<span class="mi">4</span>    <span class="mf">0.400</span>    <span class="mf">0.990</span>           <span class="mf">1.00</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="referensi">
+<h2>Referensi<a class="headerlink" href="#referensi" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>García, S., Luengo, J., &amp; Herrera, F. (2015). <em>Data Preprocessing in Data Mining</em>. Springer. — Bab tentang Data Reduction dan Normalization.</p></li>
+<li><p><a class="reference external" href="https://moelaab.github.io/pendata/preproces/wknn.html">moelaab — Imputasi Berbobot dengan K-Tetangga Terdekat (WKNNI)</a></p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/preprocessing.html">Scikit-learn — Preprocessing and Normalization</a></p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pertemuan14.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Pertemuan 14 - Studi Kasus &amp; Review</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Tugas_WKNN_Normalisasi.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Tugas: Normalisasi Data Min-Max &amp; WKNN (Weighted K-Nearest Neighbor)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Tugas — Missing Values (WKNN) &amp; Normalisasi Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#struktur-tugas-sesuai-notebook">Struktur Tugas (Sesuai Notebook)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soal">1. Soal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jawaban-manual">2. Jawaban Manual</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jawaban-coding-python-program-lengkap">3. Jawaban Coding (Python) - Program Lengkap</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-normalisasi">Tabel normalisasi</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-jarak-ke-data-no-7">Tabel jarak ke data NO=7</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tiga-tetangga-terdekat-yang-dipakai">Tiga tetangga terdekat yang dipakai</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-weighted-voting">Hasil weighted voting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-data-dengan-soal-yang-sama">Normalisasi Data dengan Soal yang Sama</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-min-max-normalization">A. Min-Max Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">✍️ Jawaban Manual</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jawaban-coding">💻 Jawaban Coding</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-z-score-normalization-standardization">B. Z-Score Normalization (Standardization)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">✍️ Jawaban Manual</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">💻 Jawaban Coding</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-decimal-scaling-normalization">C. Decimal Scaling Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">✍️ Jawaban Manual</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">💻 Jawaban Coding</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-ketiga-metode-pada-dataset-soal">Perbandingan Ketiga Metode pada Dataset Soal</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daftar-isi">Daftar Isi</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-values-imputasi-wknn">1. Missing Values &amp; Imputasi WKNN</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-missing-values">1.1 Apa Itu Missing Values?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strategi-menangani-missing-values">1.2 Strategi Menangani Missing Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputasi-knn-standar-vs-wknn">1.3 Imputasi KNN Standar vs WKNN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-imputasi-standar">KNN Imputasi (Standar)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wknn-imputasi-weighted-knn">WKNN Imputasi (Weighted KNN)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-wknn">1.4 Rumus WKNN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-1-ukuran-kemiripan-similarity">Rumus (1) — Ukuran Kemiripan (<em>Similarity</em>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-2-estimasi-nilai-hilang-weighted-average">Rumus (2) — Estimasi Nilai Hilang (Weighted Average)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-manual-wknn-data-numerik">1.5 Contoh Perhitungan Manual WKNN (Data Numerik)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-harga-sewa-kos">Dataset: Harga Sewa Kos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penentuan-k">Penentuan K</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-hitung-jarak-dan-kemiripan-s-i">Langkah 1 — Hitung Jarak dan Kemiripan (<span class="math notranslate nohighlight">\(s_i\)</span>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-hitung-estimasi-weighted-average">Langkah 2 — Hitung Estimasi (Weighted Average)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-wknn-pada-data-klasifikasi-same-class-weighting">1.6 Contoh WKNN pada Data Klasifikasi (Same-Class Weighting)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-data-pelamar-kerja">Dataset: Data Pelamar Kerja</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-hitung-jarak-kemiripan">Langkah 1 — Hitung Jarak &amp; Kemiripan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-filter-same-class-kelas-1">Langkah 2 — Filter Same-Class (Kelas 1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-estimasi-hanya-kelas-1">Langkah 3 — Hitung Estimasi (Hanya Kelas 1)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-data">2. Normalisasi Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-perlu-normalisasi">2.1 Mengapa Perlu Normalisasi?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#macam-macam-normalisasi-data">2.2 Macam-Macam Normalisasi Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">A. Min-Max Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-min-max">Contoh Perhitungan Min-Max</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">B. Z-Score Normalization (Standardization)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-z-score">Contoh Perhitungan Z-Score</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">C. Decimal Scaling Normalization</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-decimal-scaling">Contoh Perhitungan Decimal Scaling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-ketiga-metode">Perbandingan Ketiga Metode</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-komparasi-data-yang-sama">Contoh Komparasi (Data yang Sama)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-dengan-python-sklearn">Implementasi dengan Python &amp; Sklearn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">A. Min-Max Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">B. Z-Score Normalization (Standardization)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">C. Decimal Scaling Normalization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-contoh-lengkap-normalisasi-dataset-multi-kolom">D. Contoh Lengkap — Normalisasi Dataset Multi-Kolom</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referensi">Referensi</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Zakaria Mujur Prasetyo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright Copyright 2026 Zakaria Mujur Prasetyo.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

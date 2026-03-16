@@ -1,0 +1,1039 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Tugas: Normalisasi Data Min-Max &amp; WKNN (Weighted K-Nearest Neighbor) &#8212; Penambangan Data A - Materi Perkuliahan</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas_WKNN_Normalisasi';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Tugas — Missing Values (WKNN) &amp; Normalisasi Data" href="Tugas%20-%20Missing%20Values%20Inputation%20%2B%20Materi%20Normalisasi%20Data.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data A - Materi Perkuliahan - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Penambangan Data A - Materi Perkuliahan - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Penambangan Data (Data Mining)
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pertemuan1.html">Pertemuan 1 - Pengantar Data Mining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="pertemuan2.html">Pertemuan 2 - Memahami Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan_3_data_preparation_markdown_saja.html">DATA PREPARATION — PERTEMUAN 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan4.html">Pertemuan 4 - Distribusi &amp; Statistik Deskriptif</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan5.html">Pertemuan 5 - Mengukur Jarak/Similaritas Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan6.html">Pertemuan 6 - Praproses Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan7.html">Pertemuan 7 - Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan8.html">Pertemuan 8 - UTS (Ujian Tengah Semester)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan9.html">Pertemuan 9 - Klasifikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan10.html">Pertemuan 10 - Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan11.html">Pertemuan 11 - Asosiasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan12.html">Pertemuan 12 - Regresi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan13.html">Pertemuan 13 - Evaluasi Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan14.html">Pertemuan 14 - Studi Kasus &amp; Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas%20-%20Missing%20Values%20Inputation%20%2B%20Materi%20Normalisasi%20Data.html">Tugas — Missing Values (WKNN) &amp; Normalisasi Data</a></li>
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Notebook: WKNN &amp; Normalisasi</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ZekkCode/Pendata.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ZekkCode/Pendata.git/issues/new?title=Issue%20on%20page%20%2FTugas_WKNN_Normalisasi.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tugas_WKNN_Normalisasi.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tugas: Normalisasi Data Min-Max & WKNN (Weighted K-Nearest Neighbor)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soal">📋 Soal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jawaban-manual">✍️ JAWABAN MANUAL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-normalisasi-min-max">Langkah 1: Normalisasi Min-Max</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nilai-min-dan-max-setiap-fitur">Nilai Min dan Max setiap fitur:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-normalisasi-ipk">Perhitungan Normalisasi IPK:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-normalisasi-po">Perhitungan Normalisasi PO:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-normalisasi-jmlh">Perhitungan Normalisasi JMLH:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-hasil-normalisasi">Tabel Hasil Normalisasi:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-menghitung-jarak-euclidean-dari-data-no-7-ke-semua-data-latih">Langkah 2: Menghitung Jarak Euclidean dari Data NO=7 ke semua data latih</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-jarak-diurutkan-dari-terkecil">Tabel Jarak (diurutkan dari terkecil):</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-menghitung-bobot-wknn">Langkah 3: Menghitung Bobot WKNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-voting-berbobot-weighted-voting">Langkah 4: Voting Berbobot (Weighted Voting)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-manual">✅ Kesimpulan Manual:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jawaban-coding-python">💻 JAWABAN CODING (Python)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tugas-normalisasi-data-min-max-wknn-weighted-k-nearest-neighbor">
+<h1>Tugas: Normalisasi Data Min-Max &amp; WKNN (Weighted K-Nearest Neighbor)<a class="headerlink" href="#tugas-normalisasi-data-min-max-wknn-weighted-k-nearest-neighbor" title="Link to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="soal">
+<h2>📋 Soal<a class="headerlink" href="#soal" title="Link to this heading">#</a></h2>
+<p>Diketahui data mahasiswa sebagai berikut:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>IPK</p></th>
+<th class="head"><p>PO (Uang Saku)</p></th>
+<th class="head"><p>JMLH (Jumlah SKS)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>200.000</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>300.000</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>200.000</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>2</p></td>
+<td><p>200.000</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>300.000</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>4</p></td>
+<td><p>400.000</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>2</p></td>
+<td><p>300.000</p></td>
+<td><p><strong>?</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Pertanyaan:</strong></p>
+<ol class="arabic simple">
+<li><p>Lakukan <strong>Normalisasi Min-Max</strong> pada setiap fitur (IPK, PO, JMLH).</p></li>
+<li><p>Gunakan metode <strong>WKNN (Weighted K-Nearest Neighbor)</strong> dengan <strong>k=3</strong> untuk memprediksi nilai <strong>JMLH</strong> pada data NO=7.</p></li>
+</ol>
+<blockquote>
+<div><p><strong>Keterangan:</strong></p>
+<ul class="simple">
+<li><p>IPK = Indeks Prestasi Kumulatif</p></li>
+<li><p>PO  = Pendapatan / Uang saku per bulan</p></li>
+<li><p>JMLH = Jumlah mata kuliah yang diambil</p></li>
+</ul>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="jawaban-manual">
+<h2>✍️ JAWABAN MANUAL<a class="headerlink" href="#jawaban-manual" title="Link to this heading">#</a></h2>
+<section id="langkah-1-normalisasi-min-max">
+<h3>Langkah 1: Normalisasi Min-Max<a class="headerlink" href="#langkah-1-normalisasi-min-max" title="Link to this heading">#</a></h3>
+<p><strong>Rumus Normalisasi Min-Max:</strong></p>
+<div class="math notranslate nohighlight">
+\[x' = \frac{x - x_{min}}{x_{max} - x_{min}}\]</div>
+<hr class="docutils" />
+<section id="nilai-min-dan-max-setiap-fitur">
+<h4>Nilai Min dan Max setiap fitur:<a class="headerlink" href="#nilai-min-dan-max-setiap-fitur" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Min</p></th>
+<th class="head"><p>Max</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IPK</p></td>
+<td><p>2</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-odd"><td><p>PO</p></td>
+<td><p>200.000</p></td>
+<td><p>400.000</p></td>
+</tr>
+<tr class="row-even"><td><p>JMLH</p></td>
+<td><p>2</p></td>
+<td><p>3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="perhitungan-normalisasi-ipk">
+<h4>Perhitungan Normalisasi IPK:<a class="headerlink" href="#perhitungan-normalisasi-ipk" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[IPK'_1 = \frac{2-2}{4-2} = \frac{0}{2} = 0\]</div>
+<div class="math notranslate nohighlight">
+\[IPK'_2 = \frac{3-2}{4-2} = \frac{1}{2} = 0{,}5\]</div>
+<div class="math notranslate nohighlight">
+\[IPK'_3 = \frac{4-2}{4-2} = \frac{2}{2} = 1\]</div>
+<div class="math notranslate nohighlight">
+\[IPK'_4 = \frac{2-2}{4-2} = 0 \quad IPK'_5 = 0{,}5 \quad IPK'_6 = 1 \quad IPK'_7 = 0\]</div>
+</section>
+<hr class="docutils" />
+<section id="perhitungan-normalisasi-po">
+<h4>Perhitungan Normalisasi PO:<a class="headerlink" href="#perhitungan-normalisasi-po" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[PO'_1 = \frac{200000-200000}{400000-200000} = \frac{0}{200000} = 0\]</div>
+<div class="math notranslate nohighlight">
+\[PO'_2 = \frac{300000-200000}{400000-200000} = \frac{100000}{200000} = 0{,}5\]</div>
+<div class="math notranslate nohighlight">
+\[PO'_3 = \frac{200000-200000}{400000-200000} = 0 \quad PO'_4 = 0 \quad PO'_5 = 0{,}5 \quad PO'_6 = 1 \quad PO'_7 = 0{,}5\]</div>
+</section>
+<hr class="docutils" />
+<section id="perhitungan-normalisasi-jmlh">
+<h4>Perhitungan Normalisasi JMLH:<a class="headerlink" href="#perhitungan-normalisasi-jmlh" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[JMLH'_1 = \frac{2-2}{3-2} = 0 \quad JMLH'_2 = \frac{3-2}{3-2} = 1 \quad JMLH'_3 = 0\]</div>
+<div class="math notranslate nohighlight">
+\[JMLH'_4 = 1 \quad JMLH'_5 = 0 \quad JMLH'_6 = 1 \quad JMLH'_7 = ?\]</div>
+</section>
+<hr class="docutils" />
+<section id="tabel-hasil-normalisasi">
+<h4>Tabel Hasil Normalisasi:<a class="headerlink" href="#tabel-hasil-normalisasi" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>IPK’</p></th>
+<th class="head"><p>PO’</p></th>
+<th class="head"><p>JMLH’</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>0,5</p></td>
+<td><p>0,5</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>0,5</p></td>
+<td><p>0,5</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>0</p></td>
+<td><p>0,5</p></td>
+<td><p>?</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="langkah-2-menghitung-jarak-euclidean-dari-data-no-7-ke-semua-data-latih">
+<h3>Langkah 2: Menghitung Jarak Euclidean dari Data NO=7 ke semua data latih<a class="headerlink" href="#langkah-2-menghitung-jarak-euclidean-dari-data-no-7-ke-semua-data-latih" title="Link to this heading">#</a></h3>
+<p><strong>Query point (NO=7):</strong> IPK’=0, PO’=0,5<br />
+<strong>Rumus Euclidean Distance:</strong></p>
+<div class="math notranslate nohighlight">
+\[d(a,b) = \sqrt{\sum_{i=1}^{n}(a_i - b_i)^2}\]</div>
+<hr class="docutils" />
+<div class="math notranslate nohighlight">
+\[d(7,1) = \sqrt{(0-0)^2 + (0{,}5-0)^2} = \sqrt{0 + 0{,}25} = \sqrt{0{,}25} = 0{,}5\]</div>
+<div class="math notranslate nohighlight">
+\[d(7,2) = \sqrt{(0-0{,}5)^2 + (0{,}5-0{,}5)^2} = \sqrt{0{,}25 + 0} = \sqrt{0{,}25} = 0{,}5\]</div>
+<div class="math notranslate nohighlight">
+\[d(7,3) = \sqrt{(0-1)^2 + (0{,}5-0)^2} = \sqrt{1 + 0{,}25} = \sqrt{1{,}25} \approx 1{,}118\]</div>
+<div class="math notranslate nohighlight">
+\[d(7,4) = \sqrt{(0-0)^2 + (0{,}5-0)^2} = \sqrt{0 + 0{,}25} = \sqrt{0{,}25} = 0{,}5\]</div>
+<div class="math notranslate nohighlight">
+\[d(7,5) = \sqrt{(0-0{,}5)^2 + (0{,}5-0{,}5)^2} = \sqrt{0{,}25 + 0} = \sqrt{0{,}25} = 0{,}5\]</div>
+<div class="math notranslate nohighlight">
+\[d(7,6) = \sqrt{(0-1)^2 + (0{,}5-1)^2} = \sqrt{1 + 0{,}25} = \sqrt{1{,}25} \approx 1{,}118\]</div>
+<hr class="docutils" />
+<section id="tabel-jarak-diurutkan-dari-terkecil">
+<h4>Tabel Jarak (diurutkan dari terkecil):<a class="headerlink" href="#tabel-jarak-diurutkan-dari-terkecil" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>NO</p></th>
+<th class="head"><p>Jarak</p></th>
+<th class="head"><p>JMLH</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0,5</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>0,5</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>0,5</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>0,5</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>1,118</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>1,118</p></td>
+<td><p>3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>3 tetangga terdekat (k=3):</strong> NO=1, NO=2, NO=4</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="langkah-3-menghitung-bobot-wknn">
+<h3>Langkah 3: Menghitung Bobot WKNN<a class="headerlink" href="#langkah-3-menghitung-bobot-wknn" title="Link to this heading">#</a></h3>
+<p><strong>Rumus Bobot WKNN:</strong></p>
+<div class="math notranslate nohighlight">
+\[w_i = \frac{1}{d_i^2}\]</div>
+<div class="math notranslate nohighlight">
+\[w_1 = \frac{1}{0{,}5^2} = \frac{1}{0{,}25} = 4\]</div>
+<div class="math notranslate nohighlight">
+\[w_2 = \frac{1}{0{,}5^2} = \frac{1}{0{,}25} = 4\]</div>
+<div class="math notranslate nohighlight">
+\[w_4 = \frac{1}{0{,}5^2} = \frac{1}{0{,}25} = 4\]</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-4-voting-berbobot-weighted-voting">
+<h3>Langkah 4: Voting Berbobot (Weighted Voting)<a class="headerlink" href="#langkah-4-voting-berbobot-weighted-voting" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kelas (JMLH)</p></th>
+<th class="head"><p>Tetangga</p></th>
+<th class="head"><p>Bobot</p></th>
+<th class="head"><p>Total Bobot</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>JMLH = 2</p></td>
+<td><p>NO=1</p></td>
+<td><p>4</p></td>
+<td><p><strong>4</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>JMLH = 3</p></td>
+<td><p>NO=2, NO=4</p></td>
+<td><p>4+4</p></td>
+<td><p><strong>8</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[\text{Total bobot JMLH=2} = 4\]</div>
+<div class="math notranslate nohighlight">
+\[\text{Total bobot JMLH=3} = 4 + 4 = 8\]</div>
+</section>
+<section id="kesimpulan-manual">
+<h3>✅ Kesimpulan Manual:<a class="headerlink" href="#kesimpulan-manual" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p>Kelas dengan bobot tertinggi adalah <strong>JMLH = 3</strong> (bobot = 8)<br />
+Maka prediksi untuk data NO=7 adalah <span class="math notranslate nohighlight">\(\boxed{JMLH = 3}\)</span></p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="jawaban-coding-python">
+<h2>💻 JAWABAN CODING (Python)<a class="headerlink" href="#jawaban-coding-python" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="c1"># ============================================================</span>
+<span class="c1"># DATA AWAL</span>
+<span class="c1"># ============================================================</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;NO&#39;</span>  <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="s1">&#39;IPK&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="s1">&#39;PO&#39;</span>  <span class="p">:</span> <span class="p">[</span><span class="mi">200000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">,</span> <span class="mi">200000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">,</span> <span class="mi">400000</span><span class="p">,</span> <span class="mi">300000</span><span class="p">],</span>
+    <span class="s1">&#39;JMLH&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>  <span class="c1"># NO=7 belum diketahui</span>
+<span class="p">}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;           DATA AWAL&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># LANGKAH 1: NORMALISASI MIN-MAX</span>
+<span class="c1"># ============================================================</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">min_max_normalize</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalisasi Min-Max: x&#39; = (x - x_min) / (x_max - x_min)&quot;&quot;&quot;</span>
+    <span class="n">x_min</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">x_max</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">series</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">),</span> <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span>
+
+<span class="n">df_norm</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Normalisasi IPK (gunakan semua data termasuk NO=7)</span>
+<span class="n">df_norm</span><span class="p">[</span><span class="s1">&#39;IPK_norm&#39;</span><span class="p">],</span> <span class="n">ipk_min</span><span class="p">,</span> <span class="n">ipk_max</span> <span class="o">=</span> <span class="n">min_max_normalize</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;IPK&#39;</span><span class="p">])</span>
+
+<span class="c1"># Normalisasi PO (gunakan semua data termasuk NO=7)</span>
+<span class="n">df_norm</span><span class="p">[</span><span class="s1">&#39;PO_norm&#39;</span><span class="p">],</span> <span class="n">po_min</span><span class="p">,</span> <span class="n">po_max</span> <span class="o">=</span> <span class="n">min_max_normalize</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;PO&#39;</span><span class="p">])</span>
+
+<span class="c1"># Normalisasi JMLH (hanya data latih, NO=7 diabaikan)</span>
+<span class="n">jmlh_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">jmlh_min</span> <span class="o">=</span> <span class="n">jmlh_train</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">jmlh_max</span> <span class="o">=</span> <span class="n">jmlh_train</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">df_norm</span><span class="p">[</span><span class="s1">&#39;JMLH_norm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">jmlh_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">jmlh_max</span> <span class="o">-</span> <span class="n">jmlh_min</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">65</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;           TABEL NORMALISASI MIN-MAX&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">65</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Min-Max IPK  : min=</span><span class="si">{</span><span class="n">ipk_min</span><span class="si">}</span><span class="s2">, max=</span><span class="si">{</span><span class="n">ipk_max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Min-Max PO   : min=</span><span class="si">{</span><span class="n">po_min</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">, max=</span><span class="si">{</span><span class="n">po_max</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Min-Max JMLH : min=</span><span class="si">{</span><span class="n">jmlh_min</span><span class="si">}</span><span class="s2">, max=</span><span class="si">{</span><span class="n">jmlh_max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">65</span><span class="p">)</span>
+
+<span class="n">display_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;IPK&#39;</span><span class="p">,</span> <span class="s1">&#39;PO&#39;</span><span class="p">,</span> <span class="s1">&#39;JMLH&#39;</span><span class="p">,</span> <span class="s1">&#39;IPK_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;PO_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;JMLH_norm&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_norm</span><span class="p">[</span><span class="n">display_cols</span><span class="p">]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">65</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># LANGKAH 2: MENGHITUNG JARAK EUCLIDEAN</span>
+<span class="c1"># ============================================================</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">euclidean_distance</span><span class="p">(</span><span class="n">point_a</span><span class="p">,</span> <span class="n">point_b</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Hitung jarak Euclidean antara dua titik&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">point_a</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">point_b</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># Data latih (NO=1 sampai NO=6)</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">df_norm</span><span class="p">[</span><span class="n">df_norm</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Data uji / query point (NO=7)</span>
+<span class="n">query</span> <span class="o">=</span> <span class="n">df_norm</span><span class="p">[</span><span class="n">df_norm</span><span class="p">[</span><span class="s1">&#39;NO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7</span><span class="p">][[</span><span class="s1">&#39;IPK_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;PO_norm&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  QUERY POINT (NO=7):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  IPK_norm = </span><span class="si">{</span><span class="n">query</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, PO_norm = </span><span class="si">{</span><span class="n">query</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  PERHITUNGAN JARAK EUCLIDEAN:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+
+<span class="n">distances</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">train_data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;IPK_norm&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;PO_norm&#39;</span><span class="p">]]</span>
+    <span class="n">dist</span>  <span class="o">=</span> <span class="n">euclidean_distance</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">point</span><span class="p">)</span>
+    <span class="n">distances</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;NO&#39;</span>   <span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;NO&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;IPK_norm&#39;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IPK_norm&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;PO_norm&#39;</span> <span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;PO_norm&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;JMLH&#39;</span>    <span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;Jarak&#39;</span>   <span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="n">diff_ipk</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">query</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;IPK_norm&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)²&quot;</span>
+    <span class="n">diff_po</span>  <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">query</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;PO_norm&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)²&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  d(7,</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;NO&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2">) = sqrt</span><span class="si">{</span><span class="n">diff_ipk</span><span class="si">}</span><span class="s2"> + </span><span class="si">{</span><span class="n">diff_po</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">dist</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">df_dist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Jarak&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  TABEL JARAK (urut dari terkecil):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_dist</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># LANGKAH 3: WKNN - PILIH k=3 TETANGGA TERDEKAT &amp; HITUNG BOBOT</span>
+<span class="c1"># ============================================================</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">k_nearest</span> <span class="o">=</span> <span class="n">df_dist</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Bobot WKNN: w = 1 / d²</span>
+<span class="n">k_nearest</span><span class="p">[</span><span class="s1">&#39;Bobot (1/d²)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">k_nearest</span><span class="p">[</span><span class="s1">&#39;Jarak&#39;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> TETANGGA TERDEKAT (k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">) &amp; BOBOT WKNN:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">k_nearest</span><span class="p">[[</span><span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;IPK_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;PO_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;Jarak&#39;</span><span class="p">,</span> <span class="s1">&#39;JMLH&#39;</span><span class="p">,</span> <span class="s1">&#39;Bobot (1/d²)&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># LANGKAH 4: WEIGHTED VOTING - PREDIKSI KELAS</span>
+<span class="c1"># ============================================================</span>
+
+<span class="c1"># Akumulasi bobot per kelas JMLH</span>
+<span class="n">class_weights</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">k_nearest</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">class_weights</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">])]</span> <span class="o">+=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Bobot (1/d²)&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  WEIGHTED VOTING:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">kelas</span><span class="p">,</span> <span class="n">bobot</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">class_weights</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">detail</span> <span class="o">=</span> <span class="n">k_nearest</span><span class="p">[</span><span class="n">k_nearest</span><span class="p">[</span><span class="s1">&#39;JMLH&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">kelas</span><span class="p">]</span>
+    <span class="n">no_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">detail</span><span class="p">[</span><span class="s1">&#39;NO&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  JMLH = </span><span class="si">{</span><span class="n">kelas</span><span class="si">}</span><span class="s2">  |  Tetangga: NO=</span><span class="si">{</span><span class="n">no_list</span><span class="si">}</span><span class="s2">  |  Total Bobot = </span><span class="si">{</span><span class="n">bobot</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Prediksi: kelas dengan total bobot tertinggi</span>
+<span class="n">prediksi_jmlh</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">class_weights</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">class_weights</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ✅ HASIL PREDIKSI WKNN untuk NO=7:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;     JMLH = </span><span class="si">{</span><span class="n">prediksi_jmlh</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">55</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
+<span class="c1"># REKAP LENGKAP - TABEL AKHIR</span>
+<span class="c1"># ============================================================</span>
+
+<span class="n">df_final</span> <span class="o">=</span> <span class="n">df_norm</span><span class="p">[[</span><span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;IPK&#39;</span><span class="p">,</span> <span class="s1">&#39;PO&#39;</span><span class="p">,</span> <span class="s1">&#39;JMLH&#39;</span><span class="p">,</span> <span class="s1">&#39;IPK_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;PO_norm&#39;</span><span class="p">,</span> <span class="s1">&#39;JMLH_norm&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Isi prediksi untuk NO=7</span>
+<span class="n">df_final</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_final</span><span class="p">[</span><span class="s1">&#39;NO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;JMLH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">prediksi_jmlh</span>
+<span class="n">jmlh_norm_pred</span> <span class="o">=</span> <span class="p">(</span><span class="n">prediksi_jmlh</span> <span class="o">-</span> <span class="n">jmlh_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">jmlh_max</span> <span class="o">-</span> <span class="n">jmlh_min</span><span class="p">)</span>
+<span class="n">df_final</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_final</span><span class="p">[</span><span class="s1">&#39;NO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;JMLH_norm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">jmlh_norm_pred</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">75</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  TABEL LENGKAP: DATA AWAL + NORMALISASI + PREDIKSI WKNN&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">75</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_final</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">75</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Catatan: Nilai JMLH pada NO=7 diprediksi dengan WKNN (k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">) = </span><span class="si">{</span><span class="n">prediksi_jmlh</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">75</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Tugas%20-%20Missing%20Values%20Inputation%20%2B%20Materi%20Normalisasi%20Data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Tugas — Missing Values (WKNN) &amp; Normalisasi Data</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soal">📋 Soal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jawaban-manual">✍️ JAWABAN MANUAL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-normalisasi-min-max">Langkah 1: Normalisasi Min-Max</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#nilai-min-dan-max-setiap-fitur">Nilai Min dan Max setiap fitur:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-normalisasi-ipk">Perhitungan Normalisasi IPK:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-normalisasi-po">Perhitungan Normalisasi PO:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-normalisasi-jmlh">Perhitungan Normalisasi JMLH:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-hasil-normalisasi">Tabel Hasil Normalisasi:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-menghitung-jarak-euclidean-dari-data-no-7-ke-semua-data-latih">Langkah 2: Menghitung Jarak Euclidean dari Data NO=7 ke semua data latih</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-jarak-diurutkan-dari-terkecil">Tabel Jarak (diurutkan dari terkecil):</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-menghitung-bobot-wknn">Langkah 3: Menghitung Bobot WKNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-voting-berbobot-weighted-voting">Langkah 4: Voting Berbobot (Weighted Voting)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-manual">✅ Kesimpulan Manual:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jawaban-coding-python">💻 JAWABAN CODING (Python)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Zakaria Mujur Prasetyo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright Copyright 2026 Zakaria Mujur Prasetyo.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
