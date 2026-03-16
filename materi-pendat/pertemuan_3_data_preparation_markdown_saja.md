@@ -124,8 +124,6 @@ Sedangkan `Iris-setosa`, `Iris-versicolor`, `Iris-virginica` → **kelas/label**
 
 ---
 
-## Pembersihan Data
-
 ---
 
 ## 3.5 Identifikasi Missing Value
@@ -166,8 +164,6 @@ rows_with_missing.head()
 ```
 
 ---
-
-## Statistik Deskriptif
 
 ---
 
@@ -306,8 +302,6 @@ plt.show()
 
 ---
 
-## Data Collecting
-
 ---
 
 > 💡 **Catatan:** Setelah memahami statistik data (*Data Understanding*), langkah berikutnya adalah **pengukuran jarak** antar sampel. Dalam urutan CRISP-DM, pengukuran jarak dilakukan tepat setelah eksplorasi data — lihat **Section 3.13** untuk detail metrik dan implementasi.
@@ -346,8 +340,6 @@ Data collecting adalah proses mengumpulkan data **sebelum** preparation dimulai.
 
 ---
 
-## Menarik Data dari Database
-
 ---
 
 ## 3.12 Cara Menarik Data dari MySQL/PostgreSQL ke Orange
@@ -385,8 +377,6 @@ WHERE sepal_length IS NOT NULL;
 
 ---
 
-## Transformasi Data
-
 ---
 
 ## 3.6 Encoding Label
@@ -423,8 +413,6 @@ Kolom `species_encoded` kini merepresentasikan label dalam bentuk angka.
 
 ---
 
-## Seleksi Fitur
-
 ---
 
 ## 3.7 Pemisahan Fitur dan Target
@@ -452,8 +440,6 @@ X.head()
 `y` = `[0, 0, 0, ..., 1, 1, 1, ..., 2, 2, 2]` (target klasifikasi, 50 sampel per kelas).
 
 ---
-
-## Standardisasi Scaling
 
 ---
 
@@ -491,8 +477,6 @@ Setelah scaling, seluruh fitur memiliki **mean ≈ 0** dan **standar deviasi ≈
 
 ---
 
-## Visualisasi Sebelum dan Sesudah Scaling
-
 ---
 
 ## 3.9 Sebelum Scaling
@@ -522,8 +506,6 @@ plt.show()
 Setelah scaling, semua fitur berada pada skala yang sama (terpusat di 0), sehingga kontribusi setiap fitur terhadap perhitungan jarak menjadi seimbang.
 
 ---
-
-## Mengukur Jarak (Distance)
 
 ---
 
@@ -578,8 +560,6 @@ print("Minkowski(p=3) D[0:5, 0:5]:\n", D_minkowski[:5, :5].round(4))
 
 ---
 
-## Distance Matrix di Orange
-
 ---
 
 ## 3.14 Distance Matrix di Orange (Workflow)
@@ -607,8 +587,6 @@ Orange menyediakan widget **Distances** yang langsung menghitung distance matrix
 > **Gambar:** Workflow Orange yang menghitung 4 metrik jarak (Euclidean, Manhattan, Spearman, Hamming) dari data Iris yang dimuat melalui CSV File Import dan SQL Table, masing-masing diteruskan ke Distance Matrix dan disimpan via Save Distance Matrix.
 
 ---
-
-## Jarak Data Campuran (Mixed-Type)
 
 ---
 
@@ -678,7 +656,7 @@ Data HR Analytics juga dimuat langsung dari database PostgreSQL menggunakan widg
 | **Table** | `hr_analytics` |
 | **Total baris** | 208 (subset) |
 
-![Koneksi SQL Table ke PostgreSQL HRAnalytics](DataCampuranPertemuan3/HR%20Analytics/PostgreKeOrange.png)
+![Koneksi SQL Table ke PostgreSQL HRAnalytics](../DataCampuranPertemuan3/HR%20Analytics/PostgreKeOrange.png)
 
 > **Gambar:** Widget SQL Table Orange berhasil terhubung ke database PostgreSQL `HRAnalytics` dan memuat tabel `hr_analytics` (208 baris). Tombol Connect berhasil, dan data tersedia untuk dialirkan ke pipeline pengukuran jarak.
 
@@ -713,7 +691,7 @@ Karena data HR Analytics bersifat **mixed-type**, tidak ada satu metrik yang sem
 - **Hamming** menghitung perbedaan kategorikal — ideal untuk departemen, status kecelakaan, dan promosi.
 ```
 
-![Workflow Orange — Pengukuran Jarak Data Campuran HR Analytics](DataCampuranPertemuan3/HR%20Analytics/PostgreKeOrange.png)
+![Workflow Orange — Pengukuran Jarak Data Campuran HR Analytics](../DataCampuranPertemuan3/HR%20Analytics/PostgreKeOrange.png)
 
 > **Gambar:** Workflow `HRAnalytics.ows` di Orange Data Mining. Terdapat dua sumber data: **CSV File Import** (atas, `HR_comma_sep.csv`) dan **SQL Table** / database PostgreSQL `HRAnalytics` (bawah, 208 baris), masing-masing dialirkan ke **Data Table** lalu ke empat widget **Distance** (Euclidean, Manhattan, Spearman, Hamming) → **Distance Matrix** → **Save Distance Matrix**.
 
@@ -745,8 +723,6 @@ Dalam praktik Orange, Gower Distance diimplementasikan secara terpisah per tipe 
 
 ---
 
-## Menyimpan Dataset Final untuk Modeling
-
 ---
 
 ## 3.16 Menyimpan Dataset Final
@@ -773,8 +749,6 @@ df_modeling.head()
 Dataset ini telah siap digunakan untuk tahap Modeling (KNN, Decision Tree, SVM, dll). Kolom `target` berisi label encoded (0 = setosa, 1 = versicolor, 2 = virginica).
 
 ---
-
-## Checklist Output Pertemuan 3
 
 ---
 
