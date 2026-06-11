@@ -22,4 +22,5 @@ chapters:
   title: "Tugas: Missing Values (WKNN) & Normalisasi Data"
 - file: Tugas_WKNN_Normalisasi
   title: "Notebook: WKNN & Normalisasi"
+-file: Model_Peramalan_Pendat.ipynb
 ""
