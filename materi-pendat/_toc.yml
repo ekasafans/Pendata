@@ -16,9 +16,10 @@ chapters:
 - file: pertemuan10
 - file: pertemuan11
 - file: pertemuan12
-- file: pertemuan13
+- file: Model_Peramalan_Pendat
 - file: pertemuan14
 - file: Tugas - Missing Values Inputation + Materi Normalisasi Data
   title: "Tugas: Missing Values (WKNN) & Normalisasi Data"
 - file: Tugas_WKNN_Normalisasi
   title: "Notebook: WKNN & Normalisasi"
+""
