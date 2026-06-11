@@ -1,0 +1,24 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: pertemuan1
+- file: pertemuan2
+- file: pertemuan_3_data_preparation_markdown_saja
+- file: pertemuan4
+- file: pertemuan5
+- file: pertemuan6
+- file: pertemuan7
+- file: pertemuan8
+- file: pertemuan9
+- file: pertemuan10
+- file: pertemuan11
+- file: pertemuan12
+- file: pertemuan13
+- file: pertemuan14
+- file: Tugas - Missing Values Inputation + Materi Normalisasi Data
+  title: "Tugas: Missing Values (WKNN) & Normalisasi Data"
+- file: Tugas_WKNN_Normalisasi
+  title: "Notebook: WKNN & Normalisasi"

@@ -1,0 +1,5 @@
+jupyter-book==1.0.0
+ghp-import
+sphinx
+myst-parser
+sphinx-book-theme
